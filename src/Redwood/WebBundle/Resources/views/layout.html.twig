@@ -1,0 +1,322 @@
+{# src/Redwood/WebBundle/Resources/views/beforeLayout.html.twig #}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}Redwood{% endblock %}</title>
+   {#  <link rel="stylesheet" href="{{ asset('bundles/redwoodweb/css/kippt.css') }}" /> #}
+    <link rel="stylesheet" href="{{ asset('libs/bootstrap/3.0.3/css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ asset('libs/flat-ui/2.1.1/css/flat-ui.css') }}" />
+    <link href="{{ asset('bundles/redwoodweb/css/k.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/redwoodweb/css/web.css') }}" rel="stylesheet" />
+ 
+</head>
+
+<body>
+    <div id="app" class="white"><!-- App sidebar -->
+      <div id="app-sidebar" class="sidebar"><div>
+      <div class="main-head">
+        <div class="btn-group">
+            <a href="" class="user" title="Your profile">
+              <img src="Inbox%20-%20Kippt_files/160x160.jpeg" class="avatar" alt="mudenglong">
+            </a>
+            <a href="" class="notifications" title="Notifications"><i class="icon icon-notifications icon-white"></i><span></span></a>
+            <a href="" class="lists active" title="Your lists"><i class="icon icon-home icon-white"></i></a>
+        </div>
+
+        <a href="https://kippt.com/" title="Kippt" data-link="push" id="logo"></a>
+      </div>
+
+  <div class="body row non-pro">
+    <div id="sidebar-content">
+      <div>
+        <form action="/search/" method="get" class="search">
+          <input placeholder="Search clips..." name="q" title="Search from your lists" type="search">
+          <i class="icon icon-white icon-search-round"></i>
+        </form>
+
+      <div>
+      <h5><span></span>Browse</h5>
+      <ul class="lists system">
+        <li data-list-id="436440" class="list ui-droppable inbox"><a href="https://kippt.com/inbox" data-link="push"><i class="icon icon-white icon-inbox"></i>Inbox</a>
+        </li>
+        <li class="favorites"><a href="https://kippt.com/favorites" data-link="push"><i class="icon icon-white icon-favorited"></i>Favorites</a>
+        </li>
+      </ul>
+
+      <div class="folders ui-sortable">
+        <div data-title="Your lists" class="folder user-lists">
+          <div class="title">
+            <h5><span></span>Your lists</h5>
+    
+            <div class="list-actions">
+        
+              <a href="https://kippt.com/new-list" class="list-add" data-link="push" data-link-params="{&quot;folder&quot;:&quot;Your lists&quot;}" title="Create a list"><i class="icon icon-add icon-white"></i></a>
+                <div class="dropdown folder-dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="" title="Folder options">
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+                    <li><a href="" class="rename" title="Rename folder">Rename</a></li>
+              
+                  </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="title-rename" style="display: none;">
+            <input title="Folder title" placeholder="Folder name" value="Your lists" type="text">
+            <a href="" class="cancel" title="Cancel (Esc)">×</a>
+          </div>
+
+          <div class="list-search-field">
+              <input title="Search for a list" placeholder="Search lists..." type="search">
+              <a href="" class="clear" title="Clear list search (Esc)">×</a>
+          </div>
+
+          <ul class="lists user ui-sortable">
+            <li data-list-id="480167" class="list ui-droppable">
+              <div class="list-link  owner public">
+                <a href="https://kippt.com/mudenglong/web" data-username="mudenglong" data-list-slug="web" data-list-id="480167" data-link="push"><span title="This list is private"></span>我的web文件夹</a>
+
+                <div class="dropdown list-dropdown list-options">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="" title="List options">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+          
+                  <li><a href="https://kippt.com/mudenglong/web/edit" class="edit" data-link="push" title="Edit list">Edit</a></li>
+                  <li><a href="" class="delete" title="Delete list">Delete</a></li>
+                  <li class="divider"></li>
+                  
+                  <li class="sub">Move to...</li>
+                  
+                  
+                  <li class="sub">✓&nbsp;Your lists</li>
+                  
+                  
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li data-list-id="480168" class="list ui-droppable"><div class="list-link  owner public"><a href="https://kippt.com/mudenglong/3-" data-username="mudenglong" data-list-slug="3-" data-list-id="480168" data-link="push"><span title="This list is private"></span>音乐</a>
+
+    <div class="dropdown list-dropdown list-options">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="" title="List options">
+          <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+          
+          <li><a href="https://kippt.com/mudenglong/3-/edit" class="edit" data-link="push" title="Edit list">Edit</a></li>
+          <li><a href="" class="delete" title="Delete list">Delete</a></li>
+          <li class="divider"></li>
+          
+          <li class="sub">Move to...</li>
+          
+          
+          <li class="sub">✓&nbsp;Your lists</li>
+          
+          
+      </ul>
+    </div>
+</div></li></ul>
+
+<div class="new-list"><a href="https://kippt.com/new-list" data-link="push" title="Create your first list">You can group clips with lists. Create one now.</a></div></div></div>
+
+<div class="new-folder">
+    <a href="" class="title">+ New folder</a>
+    <div class="input" style="display: none;">
+        <input title="Folder title" value="Untitled Folder" type="text">
+        <a href="" class="cancel" title="Cancel (Esc)">×</a>
+    </div>
+</div>
+</div></div></div>
+</div>
+
+<div class="footer">
+  <a href="https://kippt.com/about/">About</a>
+  <a href="http://developers.kippt.com/" target="_blank">API</a>
+  <a href="https://kippt.com/feedback/">Feedback</a>
+</div></div></div>
+
+<!-- App content -->
+<div class="main col">
+    <div id="main-scroll" class="body row">
+        <!-- Logged out banner-->
+        <div id="logged-out"></div>
+        <div id="app-content"><div><div class="header" id="list-browse-title"><div id="list-header">
+<div class="main-header">
+    
+    <h1>Inbox<i class="icon icon-private" title="This is a private list"></i></h1>
+    
+    
+    <ul class="actions">
+        
+        
+        <li><a href="" class="add" title="Add a new clip"><i class="icon icon-add-link"></i></a></li>
+        
+        <li><a href="" class="bulk" title="Bulk edit clips"><i class="icon icon-bulk"></i></a></li>
+        <li class="separator"></li>
+        
+        
+
+        <li>
+            <div class="dropdown list-dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="" title="List options">
+                  <i class="icon icon-tile"></i> <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+                  <li><a class="clip-view tiles selected" title="Toggle tile view"><i class="icon icon-tile"></i> Tile View</a></li>
+                  <li><a class="clip-view list" title="Toggle list view"><i class="icon icon-list"></i> List View</a></li>
+                  
+                  
+                    
+                  
+                  
+                  
+                  
+                  <li class="divider"></li>
+                  <li><a href="https://kippt.com/mudenglong/inbox/feed/aad4941c0d8a2a4e38e2dd83a40a6996" class="rss private" title="List RSS feed (Private)">RSS Feed</a></li>
+                  
+              </ul>
+            </div>
+        </li>
+        
+        
+        
+        
+        
+        
+    </ul>
+</div>
+<div id="list-header-actions"></div>
+</div></div>
+<div id="list-browse-content"><div class="inbox" id="clips"><div class="bulk-actions"></div>
+<ul class="clip-list clearfix list">
+  <li class="clip link ui-draggable"><div class="bg"></div>
+<a class="clip-open" data-link="push" href="/mudenglong/inbox/clips/17270517">
+    <div class="overlay">
+        <div class="content">
+            <h3>http://www.fsdfldsfs.com</h3>
+            <div class="meta">www.fsdfldsfs.com</div>
+         </div>
+    </div>
+</a>
+<div class="metadata"> 
+    
+    
+    <div class="tile-actions">
+        <a title="Open link" class="external" target="_blank" rel="nofollow" href="http://www.fsdfldsfs.com"><i class="icon icon-external"></i></a>
+        <a title="Favorite" class="favorite " href=""><i class="icon icon-favorite"></i></a>
+        <a title="Save" class="save" href=""><i class="icon icon-resave"></i></a> 
+    
+        <div class="action-menu">
+            <div class="dropdown">
+              <a href="" data-toggle="dropdown" class="dropdown-toggle action"><i class="icon icon-menu"></i></a>
+              <ul aria-labelledby="dLabel" role="menu" class="dropdown-menu pull-right">
+                <li><a title="Open in Kippt" data-link="push" href="/mudenglong/inbox/clips/17270517" tabindex="-1">Open</a></li>
+                <li><a title="Edit clip" data-link="push" href="/mudenglong/inbox/clips/17270517/edit" tabindex="-1">Edit</a></li>
+                <li><a title="Move clip" class="move" href="">Move to a list</a></li>
+                <!--<li><a tabindex="-1" href="/mudenglong/inbox/clips/17270517/share" data-link="push" title="Share clip">Share</a></li>-->
+                <li class="divider"></li>
+                <li><a title="Delete clip" class="delete" href="" tabindex="-1">Delete</a></li>
+              </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tile-meta">
+        <div class="clips-extra">
+            
+             
+        </div>
+        
+        
+        
+        
+    </div>
+</div>
+
+<div class="bulk"><input type="checkbox"></div>
+<div title="Move to a list" class="drag"></div>
+
+</li>
+</ul>
+<div class="load-more">
+    <span></span>
+</div>
+<div class="no-clips">
+    
+    
+    <div class="empty-favorites no-empty">
+        <div class="bg favorites"></div>
+        <h3>No favorites.</h3>
+        <p>With favorites you can mark things to be read later or <br> keep tabs on important discussions.</p>
+    </div>
+
+    
+    <div class="empty-inbox no-empty">
+        <div class="bg inbox"></div>
+        <h3>Inbox zero — take a deep breath</h3>
+        <p>Inbox is your primary place to save things. From here you can organize things into lists or use it as a to-read queue.</p>
+        <ul class="list">
+            <li><a href="https://kippt.com/extras/"><i>🔿</i><span>Email links to your inbox. Set it up.<span></span></span></a></li>
+            <li><a href=""><i>🔒</i><span>Your inbox is always kept private</span></a></li>
+        </ul>
+        
+    </div>
+    
+    <div class="empty-list no-empty">
+        <div class="bg"></div>
+        <p>The universe is infinite — yet this list is empty.<br> You should do things like:</p>
+        <ul class="list">
+            <li>
+                <a href="" class="add">
+                    <i>⊕</i>
+                    <span><strong>Add links</strong>Articles, images, videos</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kippt.com/inbox/edit" class="edit" data-link="push">
+                    <i>👥</i>
+                    <span><strong>Invite friends</strong>Build this list together</span>
+                </a>
+            </li>
+            <li>
+                <a href="" class="add">
+                    <i>📄</i>
+                    <span><strong>Create a note</strong>Supports markdown</span></a>
+            </li>
+            <li>
+                <a href="https://kippt.com/extras/">
+                    <i>⚒</i>
+                    <span><strong>Apps &amp; Tools</strong>Mobile, email and more</span></a>
+            </li>
+        </ul>
+    </div>
+
+    
+    
+    </div></div></div></div></div>
+    </div>
+    </div></div>
+    <div id="container"></div>
+
+    <script>
+        var app = {};
+        app.debug = {% if app.debug %}true{% else %}false{% endif %};
+        app.version = '{{ assets_version() }}';
+
+        {% if script_controller is defined %}
+            app.controller = '{{ script_controller }}';
+        {% endif %}
+
+    </script>
+    <script src="{{ asset('libs/seajs/2.1.1/sea.js') }}"></script>
+    <script src="{{ asset('libs/seajs-global-config.js') }}"></script>       
+    <script type="text/javascript">
+        seajs.use('{{ asset('bundles/redwoodweb/js/app.js') }}');
+    </script>
+
+</body>
+</html>

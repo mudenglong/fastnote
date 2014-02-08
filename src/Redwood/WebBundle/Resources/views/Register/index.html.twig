@@ -1,0 +1,64 @@
+{# src/Redwood/WebBundle/Resources/views/Register/index.html.twig #}
+{% extends 'RedwoodWebBundle::beforeLayout.html.twig' %}
+{% block introduce %}  
+	{# <h1>注 册</h1> #}
+
+{% endblock %}
+{% set script_controller = 'auth/register' %}
+{% block content %}
+
+		{{ form_errors(form) }}
+
+		<form id="signForm" action="{{ path('register') }}" method="POST" {{ form_enctype(form) }}>
+		    {# <h3>请用Email 注册</h3> #}
+
+			<div>
+		        {{ form_widget(form.username, {attr:{placeholder: 'username'}}) }}
+		    </div>
+		    <div>
+		        {{ form_widget(form.email, {attr:{placeholder: 'xxx.@example.com'}}) }}
+		    </div>
+		    <div>
+		       {{ form_widget(form.password, {attr:{placeholder: 'password'}}) }}
+		    </div>
+
+		    <div>
+		        
+				{# <input name="next" value="/welcome/" type="hidden"> #}
+				{{ form_rest(form) }}
+				<input value="submit" type="submit">
+		    </div>
+		
+		</form>
+
+
+		<div class="container">
+      <div class="demo-headline">
+        <h1 class="demo-logo">
+          <div class="logo"></div>
+          Flat UI
+          <small>Free User Interface Kit</small>
+        </h1>
+      </div> <!-- /demo-headline -->
+
+      <h1 class="demo-section-title">Basic elements</h1>
+      <h3 class="demo-panel-title">Buttons</h3>
+
+      <div class="row demo-row">
+        <div class="col-md-3">
+          <a href="#fakelink" class="btn btn-block btn-lg btn-primary">Primary Button</a>
+        </div>
+        <div class="col-md-3">
+          <a href="#fakelink" class="btn btn-block btn-lg btn-warning">Warning Button</a>
+        </div>
+        <div class="col-md-3">
+          <a href="#fakelink" class="btn btn-block btn-lg btn-default">Default Button</a>
+        </div>
+        <div class="col-md-3">
+          <a href="#fakelink" class="btn btn-block btn-lg btn-danger">Danger Button</a>
+        </div>
+      </div> <!-- /row -->
+
+
+{% endblock %}
+
