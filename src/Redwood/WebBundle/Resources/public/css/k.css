@@ -1719,9 +1719,7 @@ button.btn.btn-mini, input.btn.btn-mini[type="submit"] {
     vertical-align: middle;
     white-space: nowrap;
 }
-.btn-group:first-child {
-}
-.btn-group + .btn-group {
+.btn-group {
     margin-left: 5px;
 }
 .btn-toolbar {
@@ -6592,7 +6590,7 @@ abbr[class="date"] {
     color: #111111;
 }
 .e404 {
-    background: url("../../img/404.png") no-repeat scroll center top rgba(0, 0, 0, 0);
+    background: url("../img/404.png") no-repeat scroll center top rgba(0, 0, 0, 0);
     color: #C7CED5;
     font-size: 24px;
     height: 40px;
@@ -6620,23 +6618,23 @@ abbr[class="date"] {
     padding: 1.2em 2em 1.1em;
 }
 .no-clips .bg, .no-users .bg {
-    background: url("../../img/bg-empty-list@2x.png") no-repeat scroll center top / 100px auto rgba(0, 0, 0, 0);
+    background: url("../img/bg-empty-list@2x.png") no-repeat scroll center top / 100px auto rgba(0, 0, 0, 0);
     height: 100px;
     margin: 20px auto;
     opacity: 0.15;
     width: 100px;
 }
 .no-clips .bg.telescope, .no-users .bg.telescope {
-    background-image: url("../../img/icon-telescope.png");
+    background-image: url("../img/icon-telescope.png");
 }
 .no-clips .favorites.bg, .no-users .favorites.bg {
-    background-image: url("../../img/empty-favorites@2x.png");
+    background-image: url("../img/empty-favorites@2x.png");
 }
 .no-clips .inbox.bg, .no-users .inbox.bg {
-    background-image: url("../../img/empty-inbox@2x.png");
+    background-image: url("../img/empty-inbox@2x.png");
 }
 .no-clips .feed.bg, .no-users .feed.bg {
-    background-image: url("../../img/empty-feed@2x.png");
+    background-image: url("../img/empty-feed@2x.png");
 }
 .no-clips ul, .no-users ul {
     list-style: none outside none;
@@ -6943,7 +6941,7 @@ a:hover {
     padding-left: 40px;
 }
 #logo {
-    background: url("../../img/kippt-logo-w.png") no-repeat scroll 0 0 / 52px auto rgba(0, 0, 0, 0);
+    background: url("../img/kippt-logo-w.png") no-repeat scroll 0 0 / 52px auto rgba(0, 0, 0, 0);
     font-size: 0;
     height: 24px;
     left: 20px;
@@ -7009,13 +7007,13 @@ a:hover {
     background-color: #28B88E;
 }
 #messages li.success div {
-    background-image: url("../../img/icon-done.png");
+    background-image: url("../img/icon-done.png");
 }
 #messages li.error {
     background-color: #E06952;
 }
 #messages li.error > div {
-    background-image: url("../../img/icon-error.png");
+    background-image: url("../img/icon-error.png");
 }
 #messages li.notification {
     background-color: #ECEEF1;
@@ -7049,7 +7047,7 @@ a:hover {
     animation-duration: 0.8s;
     animation-name: rotate;
     animation-timing-function: ease-in;
-    background: url("../../img/icon-loading.png") no-repeat scroll center center / 24px auto rgba(0, 0, 0, 0);
+    background: url("../img/icon-loading.png") no-repeat scroll center center / 24px auto rgba(0, 0, 0, 0);
     display: block;
     height: 32px;
     margin: 15px auto 0;
@@ -7083,7 +7081,7 @@ a:hover {
     line-height: 0.4;
 }
 .page footer .lovingly p {
-    background: url("../../img/kippt-logo-w.png") no-repeat scroll 0 0 / 62px auto rgba(0, 0, 0, 0);
+    background: url("../img/kippt-logo-w.png") no-repeat scroll 0 0 / 62px auto rgba(0, 0, 0, 0);
     color: #8F939B;
     font-size: 0.8rem;
     font-weight: normal;
@@ -7562,7 +7560,7 @@ body.logged-out #app .main .body {
     background: none repeat scroll 0 0 #777777;
 }
 #list-header ul.actions > li a.active i.icon {
-    background-image: url("../../img/icons-gc-w.png");
+    background-image: url("../img/icons-gc-w.png");
     opacity: 1;
 }
 #list-header ul.actions .add-link input[type="text"] {
@@ -7680,7 +7678,7 @@ body.logged-out #app .main .body {
     top: 0;
 }
 #clips .clip-list > .clip.ui-draggable .drag {
-    background: url("../../img/drag-handle.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/drag-handle.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     cursor: move;
     display: none;
     height: 22px;
@@ -7725,7 +7723,7 @@ body.logged-out #app .main .body {
     transition: background-color 100ms linear 0s;
 }
 #clips .clip-list .tile-actions > a:hover i, #clips .clip-list .tile-actions .action:hover i {
-    background-image: url("../../img/icons-gc-w.png");
+    background-image: url("../img/icons-gc-w.png");
     opacity: 1;
 }
 #clips .clip-list .tile-actions .action-menu {
@@ -7832,7 +7830,7 @@ body.logged-out #app .main .body {
     width: 90%;
 }
 #clips .clip-list.tiles .clip.loading {
-    background: url("../../img/tile-loading.png") no-repeat scroll center center #EEEEEE !important;
+    background: url("../img/tile-loading.png") no-repeat scroll center center #EEEEEE !important;
 }
 #clips .clip-list.tiles .clip.feed {
     height: 232px;
@@ -8005,7 +8003,7 @@ body.logged-out #app .main .body {
     background-color: #9FA7B0;
 }
 #clips .clip-list.tiles .clip.file .bg {
-    background: url("../../img/icon-file.png") no-repeat scroll 20px center / 76px auto rgba(0, 0, 0, 0);
+    background: url("../img/icon-file.png") no-repeat scroll 20px center / 76px auto rgba(0, 0, 0, 0);
 }
 #clips .clip-list.tiles .clip.file .overlay {
     bottom: 0;
@@ -8035,7 +8033,7 @@ body.logged-out #app .main .body {
     top: 0;
 }
 #clips .clip-list.tiles .clip.tweet .bg {
-    background: url("../../img/soc-twitter.png") no-repeat scroll 30px 30px / 32px auto rgba(0, 0, 0, 0);
+    background: url("../img/soc-twitter.png") no-repeat scroll 30px 30px / 32px auto rgba(0, 0, 0, 0);
     opacity: 0.5;
 }
 #clips .clip-list.tiles .clip.tweet .meta {
@@ -8055,7 +8053,7 @@ body.logged-out #app .main .body {
     color: #FFFFFF;
 }
 #clips .clip-list.tiles .clip.github-repository .bg, #clips .clip-list.tiles .clip.github-gist .bg {
-    background: url("../../img/bg-github.png") no-repeat scroll 140% center rgba(0, 0, 0, 0);
+    background: url("../img/bg-github.png") no-repeat scroll 140% center rgba(0, 0, 0, 0);
 }
 #clips .clip-list.tiles .clip.github-repository h3, #clips .clip-list.tiles .clip.github-repository .meta, #clips .clip-list.tiles .clip.github-repository .description, #clips .clip-list.tiles .clip.github-gist h3, #clips .clip-list.tiles .clip.github-gist .meta, #clips .clip-list.tiles .clip.github-gist .description {
     color: #FFFFFF;
@@ -8088,7 +8086,7 @@ body.logged-out #app .main .body {
     background-color: #EEEEEE;
 }
 #clips .clip-list.tiles .clip.video .overlay .content, #clips .clip-list.tiles .clip.article.image-scaled .overlay .content, #clips .clip-list.tiles .clip.link.image-scaled .overlay .content, #clips .clip-list.tiles .clip.rich.image-scaled .overlay .content {
-    background: url("../../img/bg-gradient-8.png") no-repeat scroll center bottom / 100% 120% rgba(0, 0, 0, 0);
+    background: url("../img/bg-gradient-8.png") no-repeat scroll center bottom / 100% 120% rgba(0, 0, 0, 0);
     padding: 140px 0 15px;
 }
 #clips .clip-list.tiles .clip.video .overlay .content h3, #clips .clip-list.tiles .clip.article.image-scaled .overlay .content h3, #clips .clip-list.tiles .clip.link.image-scaled .overlay .content h3, #clips .clip-list.tiles .clip.rich.image-scaled .overlay .content h3 {
@@ -8234,7 +8232,7 @@ body.logged-out #app .main .body {
     display: none;
 }
 #clips .clip-list.list .clip .bg {
-    background: url("../../img/bg-link.png") no-repeat scroll center center / cover #EEEEEE;
+    background: url("../img/bg-link.png") no-repeat scroll center center / cover #EEEEEE;
     float: left;
     height: 42px;
     width: 68px;
@@ -8412,7 +8410,7 @@ body.logged-out #app .main .body {
 }
 #clips .clip-list.list .clip.github-repository .bg, #clips .clip-list.list .clip.github-gist .bg {
     background-color: #404556;
-    background-image: url("../../img/bg-github.png");
+    background-image: url("../img/bg-github.png");
 }
 #clips .clip-list.list .clip.github-repository.php .bg {
     background-color: #9A4CD7;
@@ -8430,7 +8428,7 @@ body.logged-out #app .main .body {
     background-color: #278DC1;
 }
 #clips .clip-list.list .clip.file .bg {
-    background: url("../../img/icon-file.png") no-repeat scroll center center / 16px auto #9FA7B0;
+    background: url("../img/icon-file.png") no-repeat scroll center center / 16px auto #9FA7B0;
 }
 #clips .clip-list.list .clip.note .content {
     max-height: 42px;
@@ -8485,14 +8483,13 @@ body.logged-out #app .main .body {
 }
 #app-sidebar .footer {
     background: none repeat scroll 0 0 #22262E;
-    bottom: 0;
+    bottom: 6px;
     color: #EEEEEE;
     font-size: 11px;
     height: 16px;
     left: 0;
-    padding: 7px 5px;
+    padding: 0px 5px;
     position: absolute;
-    width: 240px;
 }
 #app-sidebar .footer a {
     color: #AAAAAA;
@@ -8555,14 +8552,17 @@ body.logged-out #app .main .body {
     margin: 0;
     position: relative;
 }
-#app-sidebar form input[type="search"] {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 0 none;
-    box-shadow: none;
-    color: #FFFFFF;
-    margin: 0;
-    padding: 17px 10px 10px 40px;
-    width: 190px;
+#app-sidebar form input[type=search] {
+background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+border: 0 none;
+padding: 16px 0px 16px 40px;
+margin: 0px 0px 0 0px;
+width: 100%;
+height: 100%;
+line-height: 24px;
+color: #FFFFFF;
+box-shadow: none;
+-webkit-transition: .15s linear background-color;
 }
 #app-sidebar form input[type="search"]:focus {
     background-color: rgba(0, 0, 0, 0.4);
@@ -8602,7 +8602,7 @@ body.logged-out #app .main .body {
     position: absolute;
     right: 20px;
     top: 14px;
-    width: 105px;
+    width: 68px;
 }
 #app-sidebar .main-head .btn-group > a {
     float: right;
@@ -8744,7 +8744,7 @@ body.logged-out #app .main .body {
     overflow: hidden;
 }
 #app-sidebar #sidebar-content .folder .title h5 span {
-    background: url("../../img/icons-gc-w.png") no-repeat scroll -19px -116px / 80px auto rgba(0, 0, 0, 0);
+    background: url("../img/icons-gc-w.png") no-repeat scroll -19px -116px / 80px auto rgba(0, 0, 0, 0);
     display: inline-block;
     height: 10px;
     margin-right: 4px;
@@ -8841,7 +8841,7 @@ body.logged-out #app .main .body {
     margin-top: -10px;
 }
 #app-sidebar #sidebar-content .folder .new-list a {
-    background: url("../../img/arrow@2x.png") no-repeat scroll 195px 10px / 15px auto #D44012;
+    background: url("../img/arrow@2x.png") no-repeat scroll 195px 10px / 15px auto #D44012;
     color: #FFFFFF;
     display: block;
     font-size: 13px;
@@ -8913,7 +8913,7 @@ body.logged-out #app .main .body {
     background-color: #DB380E;
 }
 #app-sidebar #sidebar-content .lists > li .private > a > span {
-    background: url("../../img/icons-gc-w.png") no-repeat scroll 0 -31px / 65px auto rgba(0, 0, 0, 0);
+    background: url("../img/icons-gc-w.png") no-repeat scroll 0 -31px / 65px auto rgba(0, 0, 0, 0);
     float: right;
     height: 12px;
     margin: 0 -3px 0 0;
@@ -9110,14 +9110,14 @@ body.logged-out #app .main .body {
     width: 100%;
 }
 #clip.edit-mode #logo, #clip #logo {
-    background-image: url("../../img/kippt-logo-b.png");
+    background-image: url("../img/kippt-logo-b.png");
     opacity: 0.4 !important;
 }
 #clip .clip {
     background: none repeat scroll 0 0 #FFFFFF;
 }
 #clip.video #logo, #clip.rich #logo, #clip.image #logo, #clip.file #logo, #clip.tweet #logo, #clip.github-gist #logo {
-    background-image: url("../../img/kippt-logo-w.png");
+    background-image: url("../img/kippt-logo-w.png");
     opacity: 0.4 !important;
 }
 #clip.share .actions a.share {
@@ -9200,7 +9200,7 @@ body.logged-out #app .main .body {
     color: #FFFFFF;
 }
 #clip.file .clip-media .content .content-file {
-    background: url("../../img/icon-file.png") no-repeat scroll center top rgba(0, 0, 0, 0);
+    background: url("../img/icon-file.png") no-repeat scroll center top rgba(0, 0, 0, 0);
     padding-top: 120px;
     position: relative;
     text-align: center;
@@ -9380,7 +9380,7 @@ body.logged-out #app .main .body {
     position: relative;
 }
 #clip.article .clip-media:after {
-    background: url("../../img/bg-article.png") repeat-x scroll left bottom rgba(0, 0, 0, 0);
+    background: url("../img/bg-article.png") repeat-x scroll left bottom rgba(0, 0, 0, 0);
     bottom: 0;
     content: "";
     display: block;
@@ -9390,7 +9390,7 @@ body.logged-out #app .main .body {
     width: 100%;
 }
 #clip.article .clip-media .read-more, #clip.article .clip-media .hide-article {
-    background: url("../../img/icon-more.png") no-repeat scroll center 28px / 30px auto #FFFFFF;
+    background: url("../img/icon-more.png") no-repeat scroll center 28px / 30px auto #FFFFFF;
     border-radius: 100px;
     bottom: -50px;
     box-shadow: 0 0 0 6px #EEEEEE;
@@ -9507,7 +9507,7 @@ body.logged-out #app .main .body {
     width: 26px;
 }
 #clip .likes .like {
-    background: url("../../img/icon-like.png") no-repeat scroll 0 0 / 26px auto rgba(0, 0, 0, 0);
+    background: url("../img/icon-like.png") no-repeat scroll 0 0 / 26px auto rgba(0, 0, 0, 0);
     display: block;
     float: left;
     height: 26px;
@@ -9566,7 +9566,7 @@ body.logged-out #app .main .body {
     transition: all 0.1s linear 0s;
 }
 #clip .comments .markdown-help .icon-markdown {
-    background-image: url("../../img/markdown-48x30-solid.png");
+    background-image: url("../img/markdown-48x30-solid.png");
     background-position: left center;
     background-size: 20px auto;
     height: 16px;
@@ -9649,7 +9649,7 @@ body.logged-out #app .main .body {
     top: 140px;
 }
 #clip .clip-edit .notes:after {
-    background: url("../../img/markdown-48x30-solid.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/markdown-48x30-solid.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     content: "";
     display: block;
     height: 30px;
@@ -10210,16 +10210,16 @@ body.logged-out #app .main .body {
     font-family: "entypo";
     font-style: normal;
     font-weight: normal;
-    src: url("../../fonts/entypo.eot?#iefix") format("embedded-opentype"), url("../../fonts/entypo.woff") format("woff"), url("../../fonts/entypo.ttf") format("truetype"), url("../../fonts/entypo.svg#entypo") format("svg");
+    src: url("../fonts/entypo.eot?#iefix") format("embedded-opentype"), url("../fonts/entypo.woff") format("woff"), url("../fonts/entypo.ttf") format("truetype"), url("../fonts/entypo.svg#entypo") format("svg");
 }
 @font-face {
     font-family: "social";
     font-style: normal;
     font-weight: normal;
-    src: url("../../fonts/social.eot?#iefix") format("embedded-opentype"), url("../../fonts/social.woff") format("woff"), url("../../fonts/social.ttf") format("truetype"), url("../../fonts/social.svg#entypo-social") format("svg");
+    src: url("../fonts/social.eot?#iefix") format("embedded-opentype"), url("../fonts/social.woff") format("woff"), url("../fonts/social.ttf") format("truetype"), url("../fonts/social.svg#entypo-social") format("svg");
 }
 .icon, .icon-white {
-    background: url("../../img/icons-gc.png") no-repeat scroll 0 0 / 100px auto rgba(0, 0, 0, 0);
+    background: url("../img/icons-gc.png") no-repeat scroll 0 0 / 100px auto rgba(0, 0, 0, 0);
     display: inline-block;
     height: 16px;
     line-height: 14px;
@@ -10321,37 +10321,37 @@ body.logged-out #app .main .body {
     background-position: -48px -119px;
 }
 .icon-twitter {
-    background-image: url("../../img/soc-twitter.png");
+    background-image: url("../img/soc-twitter.png");
 }
 .icon-facebook {
-    background-image: url("../../img/soc-facebook.png");
+    background-image: url("../img/soc-facebook.png");
 }
 .icon-tumblr {
-    background-image: url("../../img/soc-tumblr.png");
+    background-image: url("../img/soc-tumblr.png");
 }
 .icon-dribbble {
-    background-image: url("../../img/soc-dribbble.png");
+    background-image: url("../img/soc-dribbble.png");
 }
 .icon-github {
-    background-image: url("../../img/soc-github.png");
+    background-image: url("../img/soc-github.png");
 }
 .icon-buffer {
-    background-image: url("../../img/soc-buffer.png");
+    background-image: url("../img/soc-buffer.png");
 }
 .icon-website {
-    background-image: url("../../img/soc-website.png");
+    background-image: url("../img/soc-website.png");
 }
 .icon-appdotnet {
-    background-image: url("../../img/soc-appdotnet.png");
+    background-image: url("../img/soc-appdotnet.png");
 }
 .icon-markdown {
-    background-image: url("../../img/markdown-48x30-solid.png");
+    background-image: url("../img/markdown-48x30-solid.png");
 }
 .icon-white {
-    background-image: url("../../img/icons-gc-w.png");
+    background-image: url("../img/icons-gc-w.png");
 }
 .icon-red, .nav-pills > .active > a > .icon, .nav-pills > .active > a > .icon, .nav-list > .active > a > .icon, .nav-list > .active > a > .icon, .navbar-inverse .nav > .active > a > .icon, .navbar-inverse .nav > .active > a > .icon, .dropdown-menu > li > a:hover > .icon, .dropdown-menu > li > a:hover > .icon, .dropdown-menu > .active > a > .icon, .dropdown-menu > .active > a > .icon, .dropdown-submenu:hover > a > .icon, .dropdown-submenu:hover > a > .icon {
-    background-image: url("../../img/icons-gc-r.png");
+    background-image: url("../img/icons-gc-r.png");
 }
 #loading {
     display: block;
@@ -10369,7 +10369,7 @@ body.logged-out #app .main .body {
     animation-timing-function: linear;
 }
 #drag-files {
-    background: url("../../img/drag-drop.png") no-repeat scroll center center rgba(0, 0, 0, 0.5);
+    background: url("../img/drag-drop.png") no-repeat scroll center center rgba(0, 0, 0, 0.5);
     height: 100%;
     left: 240px;
     position: fixed;
@@ -10395,7 +10395,7 @@ body.logged-out #app .main .body {
     display: none !important;
 }
 .logged-out .more {
-    background: url("../../img/bg-loggedout.png") no-repeat scroll 0 0 / cover #1D1D24;
+    background: url("../img/bg-loggedout.png") no-repeat scroll 0 0 / cover #1D1D24;
     color: #EEEEEE;
     display: none;
     padding: 20px 100px 30px;
@@ -10422,7 +10422,7 @@ body.logged-out #app .main .body {
 .logged-out #logged-out {
 }
 .logged-out #logged-out #logo {
-    background-image: url("../../img/kippt-logo-r.png");
+    background-image: url("../img/kippt-logo-r.png");
     opacity: 1;
     z-index: 1;
 }
@@ -10655,7 +10655,7 @@ body.note-single {
     display: none;
 }
 #users.empty .no-users {
-    background-image: url("../../img/icon-notfound@2x.png");
+    background-image: url("../img/icon-notfound@2x.png");
     background-position: center 60px;
     background-repeat: no-repeat;
     background-size: 60px auto;
@@ -10987,7 +10987,7 @@ body.note-single {
     border-color: #DDDDDD;
 }
 #tools a.safari i, #tools a.chrome i {
-    background: url("../../img/tools-safari.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+    background: url("../img/tools-safari.png") no-repeat scroll center center rgba(0, 0, 0, 0);
     border: 3px solid #EEEEEE;
     border-radius: 40px;
     float: left;
@@ -11004,7 +11004,7 @@ body.note-single {
     text-transform: uppercase;
 }
 #tools .chrome i {
-    background-image: url("../../img/tools-chrome.png");
+    background-image: url("../img/tools-chrome.png");
 }
 #tools .bookmarklet {
     background: none repeat scroll 0 0 #2A2E34;
@@ -11185,7 +11185,7 @@ body.onboarding {
     background: none repeat scroll 0 0 #ECEEF1;
 }
 body.onboarding #logo {
-    background-image: url("../../img/kippt-logo-r.png");
+    background-image: url("../img/kippt-logo-r.png");
     opacity: 1;
 }
 body.onboarding h2 {

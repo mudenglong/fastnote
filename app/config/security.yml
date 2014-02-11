@@ -55,7 +55,7 @@ security:
             anonymous:  true
 
     access_control:
-        # - { path: ^/my, role: ROLE_USER }
+        - { path: ^/inbox, role: ROLE_USER }
         - { path: ^/admin/setting, role: ROLE_SUPER_ADMIN }
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
