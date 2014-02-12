@@ -1,8 +1,7 @@
-{% extends 'RedwoodWebBundle:Note:base.html.twig' %}
+{% extends 'RedwoodWebBundle::layout.html.twig' %}
 
 {% block title %}Inbox - {{ parent() }}{% endblock %}
-
-{# {% set menu = 'note' %} #}
+{% set nav = 'settings' %}
 
 {% block appContent %} 
           <div class="header" id="list-browse-title">
@@ -26,64 +25,69 @@
                       </ul>
                     </div>
                   </li>
-    </ul>
-</div>
-<div id="list-header-actions"></div>
-</div></div>
-<div id="list-browse-content"><div class="inbox" id="clips"><div class="bulk-actions"></div>
-<ul class="clip-list clearfix list">
-  <li class="clip link ui-draggable"><div class="bg"></div>
-<a class="clip-open" data-link="push" href="/mudenglong/inbox/clips/17270517">
-    <div class="overlay">
-        <div class="content">
-            <h3>http://www.fsdfldsfs.com</h3>
-            <div class="meta">www.fsdfldsfs.com</div>
-         </div>
+                </ul>
+            </div>
+            <div id="list-header-actions"></div>
+        </div>  
     </div>
-</a>
-<div class="metadata"> 
-    
-    
-    <div class="tile-actions">
-        <a title="Open link" class="external" target="_blank" rel="nofollow" href="http://www.fsdfldsfs.com"><i class="icon icon-external"></i></a>
-        <a title="Favorite" class="favorite " href=""><i class="icon icon-favorite"></i></a>
-        <a title="Save" class="save" href=""><i class="icon icon-resave"></i></a> 
-    
-        <div class="action-menu">
-            <div class="dropdown">
-              <a href="" data-toggle="dropdown" class="dropdown-toggle action"><i class="icon icon-menu"></i></a>
-              <ul aria-labelledby="dLabel" role="menu" class="dropdown-menu pull-right">
-                <li><a title="Open in Kippt" data-link="push" href="/mudenglong/inbox/clips/17270517" tabindex="-1">Open</a></li>
-                <li><a title="Edit clip" data-link="push" href="/mudenglong/inbox/clips/17270517/edit" tabindex="-1">Edit</a></li>
-                <li><a title="Move clip" class="move" href="">Move to a list</a></li>
-                <!--<li><a tabindex="-1" href="/mudenglong/inbox/clips/17270517/share" data-link="push" title="Share clip">Share</a></li>-->
-                <li class="divider"></li>
-                <li><a title="Delete clip" class="delete" href="" tabindex="-1">Delete</a></li>
-              </ul>
+    <div id="list-browse-content">
+        <div class="inbox" id="clips">
+            <div class="bulk-actions"></div>
+
+
+
+    <ul class="clip-list clearfix list">
+      <li class="clip link ui-draggable"><div class="bg"></div>
+    <a class="clip-open" data-link="push" href="/mudenglong/inbox/clips/17270517">
+        <div class="overlay">
+            <div class="content">
+                <h3>http://www.fsdfldsfs.com</h3>
+                <div class="meta">www.fsdfldsfs.com</div>
+             </div>
+        </div>
+    </a>
+    <div class="metadata"> 
+        
+        
+        <div class="tile-actions">
+            <a title="Open link" class="external" target="_blank" rel="nofollow" href="http://www.fsdfldsfs.com"><i class="icon icon-external"></i></a>
+            <a title="Favorite" class="favorite " href=""><i class="icon icon-favorite"></i></a>
+            <a title="Save" class="save" href=""><i class="icon icon-resave"></i></a> 
+        
+            <div class="action-menu">
+                <div class="dropdown">
+                  <a href="" data-toggle="dropdown" class="dropdown-toggle action"><i class="icon icon-menu"></i></a>
+                  <ul aria-labelledby="dLabel" role="menu" class="dropdown-menu pull-right">
+                    <li><a title="Open in Kippt" data-link="push" href="/mudenglong/inbox/clips/17270517" tabindex="-1">Open</a></li>
+                    <li><a title="Edit clip" data-link="push" href="/mudenglong/inbox/clips/17270517/edit" tabindex="-1">Edit</a></li>
+                    <li><a title="Move clip" class="move" href="">Move to a list</a></li>
+                    <!--<li><a tabindex="-1" href="/mudenglong/inbox/clips/17270517/share" data-link="push" title="Share clip">Share</a></li>-->
+                    <li class="divider"></li>
+                    <li><a title="Delete clip" class="delete" href="" tabindex="-1">Delete</a></li>
+                  </ul>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <div class="tile-meta">
-        <div class="clips-extra">
+        
+        <div class="tile-meta">
+            <div class="clips-extra">
+                
+                 
+            </div>
             
-             
+            
+            
+            
         </div>
-        
-        
-        
-        
     </div>
-</div>
 
-<div class="bulk"><input type="checkbox"></div>
-<div title="Move to a list" class="drag"></div>
+    <div class="bulk"><input type="checkbox"></div>
+    <div title="Move to a list" class="drag"></div>
 
-</li>
-</ul>
-<div class="load-more">
-    <span></span>
-</div>
+    </li>
+    </ul>
+
+
 <div class="no-clips">
     
     

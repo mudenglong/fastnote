@@ -35,3 +35,11 @@ password_reset_update:
 note_inbox_show:
     pattern:  /inbox
     defaults: { _controller: RedwoodWebBundle:Note:inboxShow }
+
+# notes:
+#     pattern: /note
+#     defaults: { _controller:RedwoodWebBundle:Note:index }
+
+# settings:
+#     pattern: /settings
+#     defaults: { _controller:RedwoodWebBundle:Settings:profile }

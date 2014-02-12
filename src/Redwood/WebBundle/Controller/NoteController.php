@@ -14,4 +14,12 @@ class NoteController extends BaseController
             'user' => $user,
         ));
     }
+
+    public function indexAction() 
+    {
+    	$user = $this->getCurrentUser();
+        return $this->render('RedwoodWebBundle:Note:base.html.twig', array(
+            'user' => $user,
+        ));
+    }
 }
