@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{% block title %}Redwood{% endblock %}</title>
+ {#  <link rel="stylesheet" href="{{ asset('bundles/redwoodweb/css/kippt.css') }}" /> #}
+  <link rel="stylesheet" href="{{ asset('libs/bootstrap/3.0.3/css/bootstrap.css') }}" />
+  <link rel="stylesheet" href="{{ asset('libs/flat-ui/2.1.1/css/flat-ui.css') }}" />
+  <link href="{{ asset('bundles/redwoodweb/css/k.css') }}" rel="stylesheet" />
+  <link href="{{ asset('bundles/redwoodweb/css/web.css') }}" rel="stylesheet" />
+</head>
+{% set nav = nav|default(null) %}
+
+<body>
+    <div id="app" class="white"><!-- App sidebar -->
+      <div id="app-sidebar" class="sidebar">
+      <div class="main-head">
+
+        <div class="btn-group">
+            {# <a href="javacripts:;" {% if nav == 'settings' %} class="active" {% endif %} title="Your profile">
+              <img style='width:16px;height:16px;display:block;' src="fdfdfdsf" class="avatar" alt="mudenglong">
+            </a>
+            <a href="javacripts:;" {% if nav == 'notes' %} class="active" {% endif %} title="Your notes">
+              <i class="icon icon-home icon-white"></i>
+            </a> #}
+
+            <ul class="layout-nav" id='layout-tab'>
+              <li class="active">
+                <a href="#layout-tab-notes" data-toggle="tab">
+                  settings<i class="icon icon-home icon-white"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#layout-tab-settings" data-toggle="tab">
+                  <img style='width:16px;height:16px;display:block;' src="fdfdfdsf" class="avatar" alt="mudenglong">
+                </a>
+              </li>
+            </ul>
+        </div>
+        <a href="javascript:;" title="Kippt" class="logo">logo</a>
+
+      </div>
+
+      <div class="body row non-pro">
+       {#  <div id="sidebar-content">
+          {% block sideContent %}{% endblock %}
+          
+        </div> #}
+
+        <div id="sidebar-content">
+          <div id='layout-tab-notes' class='tab-pane'>
+            {% include 'RedwoodWebBundle:Note:base.html.twig' %}
+          </div>
+          <div id='layout-tab-settings' class='tab-pane'>
+            {% include 'RedwoodWebBundle:Settings:base.html.twig' %}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer">
+        <a href="javascript:;">About</a>
+        <a href="javascript:;">Feedback</a>
+      </div>
+   
+  </div>
+
+<!-- App content -->
+  <div class="main col">
+    <div id="main-scroll" class="body row">
+      <!-- Logged out banner-->
+      <div id="logged-out"></div>
+      <div id="app-content">
+        {% block appContent %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+<div id="container"></div>
+
+    <script>
+        var app = {};
+        app.debug = {% if app.debug %}true{% else %}false{% endif %};
+        app.version = '{{ assets_version() }}';
+
+        {% if script_controller is defined %}
+            app.controller = '{{ script_controller }}';
+        {% endif %}
+
+    </script>
+    <script src="{{ asset('libs/seajs/2.1.1/sea.js') }}"></script>
+    <script src="{{ asset('libs/seajs-global-config.js') }}"></script>       
+    <script type="text/javascript">
+        seajs.use('{{ asset('bundles/redwoodweb/js/app.js') }}');
+    </script>
+
+</body>
+</html>

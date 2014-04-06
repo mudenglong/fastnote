@@ -1,66 +1,46 @@
-<form action="" method="" class="search">
-<input placeholder="搜索您的note内容..." title="搜索" type="search">
-<i class="icon icon-white icon-search-round"></i>
-</form>
+<!-- todo <form action="" method="" class="search">
+  <input placeholder="搜索您的note内容..." title="搜索" type="search">
+  <i class="icon-white-16 icon-search-round"></i>
+</form> -->
 
-<div>
-<h5><span></span>Browse</h5>
-<ul class="lists system">
-	<li class="list ui-droppable inbox">
-		<a href="javascript:;" data-link="push">
-			<i class="icon icon-white icon-inbox">
-			</i>Inbox
-		</a>
-	</li>
-	<li class="favorites">
-		<a href="javascript:;" data-link="push">
-			<i class="icon icon-white icon-favorited">
-			</i>Favorites
-		</a>
-	</li>
-</ul>
+<div class="borwse-box">
+  <h5>快速浏览</h5>
+  <ul class="lists-system">
+  	<li>
+  		<a href="javascript:;">
+  			<i class="icon-white-16 icon-inbox">
+  			</i>Inbox
+  		</a>
+  	</li>
+  	<li>
+  		<a href="javascript:;">
+  			<i class="icon-white-16 icon-favorited">
+  			</i>Favorites
+  		</a>
+  	</li>
+  </ul>
 
   <div class="folders ui-sortable">
+  <div class="new-folder">
+    <a href="" class="title">+ 新建文件夹</a>
+    <!-- todo new folder input div -->
+  </div>
     <div data-title="Your lists" class="folder user-lists">
       <div class="title">
-        <h5><span></span>Your lists</h5>
-
-        <div class="list-actions">
-    
-          <a href="https://kippt.com/new-list" class="list-add" data-link="push" data-link-params="{&quot;folder&quot;:&quot;Your lists&quot;}" title="Create a list"><i class="icon icon-add icon-white"></i></a>
-            <div class="dropdown folder-dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="" title="Folder options">
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
-                <li><a href="" class="rename" title="Rename folder">Rename</a></li>
-          
-              </ul>
-          </div>
-        </div>
+        <h5>文档列表</h5>
       </div>
 
-      <div class="title-rename" style="display: none;">
-        <input title="Folder title" placeholder="Folder name" value="Your lists" type="text">
-        <a href="" class="cancel" title="Cancel (Esc)">×</a>
-      </div>
-
-      <div class="list-search-field">
-          <input title="Search for a list" placeholder="Search lists..." type="search">
-          <a href="" class="clear" title="Clear list search (Esc)">×</a>
-      </div>
-
-      <ul class="lists user ui-sortable">
-        <li data-list-id="480167" class="list ui-droppable">
-          <div class="list-link  owner public">
-            <a href="https://kippt.com/mudenglong/web" data-username="mudenglong" data-list-slug="web" data-list-id="480167" data-link="push"><span title="This list is private"></span>我的web文件夹</a>
+      <ul class="lists">
+        <li class="list">
+          <div class="list-link">
+            <a href="javascript:;">我的web文件夹</a>
 
             <div class="dropdown list-dropdown list-options">
               <a class="dropdown-toggle" data-toggle="dropdown" href="" title="List options">
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
-              <li><a href="https://kippt.com/mudenglong/web/edit" class="edit" data-link="push" title="Edit list">Edit</a></li>
+              <li><a href="javascript:;" title="Edit list">Edit</a></li>
               <li><a href="" class="delete" title="Delete list">Delete</a></li>
               <li class="divider"></li>
               <li class="sub">Move to...</li>
@@ -69,16 +49,16 @@
           </div>
         </div>
       </li>
-      <li data-list-id="480168" class="list ui-droppable">
-        <div class="list-link  owner public">
-          <a href="https://kippt.com/mudenglong/3-" data-username="mudenglong" data-list-slug="3-" data-list-id="480168" data-link="push"><span title="This list is private"></span>音乐</a>
+      <li class="list">
+        <div class="list-link">
+          <a href="javascript:;"><span title="This list is private"></span>音乐</a>
 
           <div class="dropdown list-dropdown list-options">
             <a class="dropdown-toggle" data-toggle="dropdown" href="" title="List options">
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
-              <li><a href="https://kippt.com/mudenglong/3-/edit" class="edit" data-link="push" title="Edit list">Edit</a></li>
+              <li><a href="javascript:;" class="edit" title="Edit list">Edit</a></li>
               <li><a href="" class="delete" title="Delete list">Delete</a></li>
               <li class="divider"></li>
               <li class="sub">Move to...</li>
@@ -89,16 +69,7 @@
       </li>
     </ul>
 
-    <div class="new-list">
-      <a href="https://kippt.com/new-list" data-link="push" title="Create your first list">You can group clips with lists. Create one now.</a>
-    </div></div>
+    </div>
     </div>
 
-    <div class="new-folder">
-        <a href="" class="title">+ New folder</a>
-        <div class="input" style="display: none;">
-            <input title="Folder title" value="Untitled Folder" type="text">
-            <a href="" class="cancel" title="Cancel (Esc)">×</a>
-        </div>
-    </div>
   </div>
