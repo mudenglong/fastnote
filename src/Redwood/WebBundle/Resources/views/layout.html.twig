@@ -57,10 +57,12 @@
             <div class="footer">
                 <a href="/about/">关于我</a>
                 <a href="/feedback/">问题反馈</a>
-                <a href="javascript:;" style="color:red;">
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ url('admin_square') }}" style="color:red;">
                     <i class="icon-white-16 icon-lock"></i>
                     进入后台
                 </a>
+                {% endif %}
             </div>
            
         </div>
