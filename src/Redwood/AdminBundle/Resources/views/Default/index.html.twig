@@ -2,5 +2,35 @@
 
 
 {% block title %}后台管理{% endblock %}
+{% set script_controller = 'tag/manager' %}
 
-{% block content %}欢迎进入后台管理!{% endblock %}
+
+{% block content %}
+欢迎进入后台管理!
+<br>
+---------------------------------------------------
+<br>
+<div id="demo">
+<div class="row">
+    <div class="col-lg-3">
+        <div class="input-group">
+            <input type="text" class="form-control"  placeholder="输入tag">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">添 加</button>
+            </span>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-8">
+        <button type="button" class="btn btn-default">tag1<span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}

@@ -18,7 +18,7 @@
             <div class="nav-top">
                 <div class="nav-group">
                     <ul class="layout-nav" id='layout-tab'>
-                        <li class="active">
+                        <li {% if nav == 'notes' %} class="active" {% endif %}>
                             <a href="#layout-tab-notes" data-toggle="tab">
                                 <i class="icon-white-16 icon-home "></i>
                             </a>
@@ -28,14 +28,11 @@
                                 <i class="icon-white-16 icon-notifications"></i>
                             </a>
                         </li>
-                        <li>
+                        <li {% if nav == 'settings' %} class="active" {% endif %}>
                             <a href="#layout-tab-settings" class="avatar" data-toggle="tab">
-                                <img alt="mudenglong" src="https://d19weqihs4yh5u.cloudfront.net/avatars/b29b9a42-a2cc-455f-91b0-8e0a5f5f832f/160x160">
+                                <img alt="mudenglong" src="">
                             </a>
                         </li>
-             
-                  
-                  
                     </ul>
                 </div>
                 <a href="javascript:;" title="redwood" class="logo">logo</a>
@@ -43,13 +40,14 @@
             </div>
             <div class="nav-body">
                 <div class="sidebar-content">
-                    <div id='layout-tab-notes' class='tab-pane'>
+                    <div id='layout-tab-notes' class='tab-pane {% if nav == 'notes' %}active{% endif %}'>
                         {% include 'RedwoodWebBundle:Note:base.html.twig' %}
                     </div>
                     <div id='layout-tab-notifications' class='tab-pane'>
-                        还没有写 //todo
+                        还没有写 
+                        <!-- @todo -->
                     </div>
-                    <div id='layout-tab-settings' class='tab-pane'>
+                    <div id='layout-tab-settings' class='tab-pane {% if nav == 'settings' %}active{% endif %}'>
                         {% include 'RedwoodWebBundle:Settings:base.html.twig' %}
                     </div>
                 </div>
@@ -68,8 +66,9 @@
         </div>
 
         <div class="right-box">
-            124654646
+            {% block rightBox %}
             
+            {% endblock %}
         </div>
     </div>
 

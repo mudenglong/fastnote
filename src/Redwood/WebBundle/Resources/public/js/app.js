@@ -15,8 +15,5 @@ define(function(require, exports, module) {
 	if (app.controller) {
 		exports.load(app.controller);
 	}
-	
-	$('#layout-tab a:last').tab('show');
-	$('#layout-tab a:first').tab('show');
 
 });

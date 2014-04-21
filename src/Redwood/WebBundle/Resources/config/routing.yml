@@ -43,3 +43,7 @@ note_inbox_show:
 # settings:
 #     pattern: /settings
 #     defaults: { _controller:RedwoodWebBundle:Settings:profile }
+
+settings_avatar:
+    pattern:  /settings/avatar
+    defaults: { _controller: RedwoodWebBundle:Settings:avatar }

@@ -8,12 +8,17 @@ th, td,form,select{ /* table elements 表格元素 */
     padding: 0;
 }
 
-body {
-  font-family: "Lato", Helvetica, Arial, "\5b8b\4f53", sans-serif;
-  font-size: 12px;
 
+body,
+button, select, textarea { /* for ie */
+    font-family: "Lato", Helvetica, Arial, "\5b8b\4f53", sans-serif; /* 用 ascii 字符表示，使得在任何编码下都无问题 */
+    12px/1.5 \5b8b\4f53, Arial, sans-serif
+    font-size: 100%;
+    font-size: 12px;
+    word-break: break-all;
+    font-family:12px/1.5 "\5b8b\4f53",Arial,sans-serif;
+    
 }
-
 h1 h2 h3 h4, h5, h6 { font-size: 100%; }
 
 code, kbd, pre, samp, tt { font-family: "Courier New", Courier, monospace; } /* 统一等宽字体 */
@@ -26,13 +31,15 @@ ul, ol { list-style: none; }
 a {text-decoration:none;}
 a:hover {text-decoration: underline; }
 q:before, q:after {content: ''; }
-
+input,button,select,textarea{outline:none}
+textarea{resize:none}
 /* 重置表单元素 */
 legend { color: #000; } /* for ie6 */
 fieldset, img { border: none; }
 /* 注：optgroup 无法扶正 */
 button, input, select, textarea {
     font-size: 100%; /* 使得表单元素在 ie 下能继承字体大小 */
+    outline:none;
 }
 hr {
     border: none;

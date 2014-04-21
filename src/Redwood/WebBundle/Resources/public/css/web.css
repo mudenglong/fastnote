@@ -87,7 +87,6 @@ input,textarea,select,h1,h2,h3,h4,h5,h6 {
 /*col */
 .left-box{
     width: 100%;
-    background: red;
     height: 100%;
 }
 .right-box{
@@ -130,7 +129,7 @@ input,textarea,select,h1,h2,h3,h4,h5,h6 {
 /*col end */
 
 .nav-top {
-  background: none repeat scroll 0 0 #22262E;
+  background-color:  #22262E;
   display: block;
   height: 60px;
   overflow: hidden;
@@ -224,7 +223,7 @@ input,textarea,select,h1,h2,h3,h4,h5,h6 {
 }
 
 .nav-body {
-  background: none repeat scroll 0 0 #1B1D24;
+  background-color:  #1B1D24;
   bottom: 30px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -241,7 +240,7 @@ input,textarea,select,h1,h2,h3,h4,h5,h6 {
         position: relative;
     }
     .nav-body {
-        background: none repeat scroll 0 0 #1B1D24;
+        background-color:  #1B1D24;
         overflow: hidden;
         position: relative;
         top: 0;
@@ -312,7 +311,7 @@ input,textarea,select,h1,h2,h3,h4,h5,h6 {
   color: #fff;
 }
 .sidebar-content .new-folder .title{
-    background: none repeat scroll 0 0 #22262E;
+    background-color:  #22262E;
     color: #DEE1E7;
     margin: 0 15px;
     padding: 7px 10px;
@@ -356,7 +355,7 @@ input,textarea,select,h1,h2,h3,h4,h5,h6 {
 }
 
 .footer {
-  background: none repeat scroll 0 0 #22262E;
+  background-color:  #22262E;
   bottom: 0;
   height: 30px;
   line-height: 30px;

@@ -12,4 +12,17 @@ class SettingsController extends BaseController
             'user' => $user,
         ));
     }
+
+    public function avatarAction()
+    {
+        $user = $this->getCurrentUser();
+        $form = $this->createFormBuilder()
+            ->add('avatar', 'file')
+            ->getForm();
+
+        return $this->render('RedwoodWebBundle:Settings:avatar.html.twig',array(
+            'user' => $user,
+            'form' => $form->createView(),
+        ));
+    }
 }
