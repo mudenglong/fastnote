@@ -14,21 +14,27 @@
 <div class="row">
     <div class="col-lg-3">
         <div class="input-group">
-            <input type="text" class="form-control"  placeholder="输入tag">
+            <input type="text" class="form-control" placeholder="输入tag" data-role="item-input">
             <span class="input-group-btn">
-                <button class="btn btn-primary" type="button">添 加</button>
+                <button class="btn btn-primary" type="button" data-role="item-add">添 加</button>
             </span>
         </div>
     </div>
 </div>
-<br>
 <div class="row">
-    <div class="col-md-8">
-        <button type="button" class="btn btn-default">tag1<span class="glyphicon glyphicon-remove"></span></button>
+    <div class="col-lg-3" data-role="item-template" style="display:none;">
+        {% verbatim %}
+        <div class="btn-group" data-role="item-box">
+            <button type="button" class="btn btn-default" data-role="item">tag1</button>
+            <button type="button" class="btn btn-default" data-role='item-delete'><span class="glyphicon glyphicon-remove"></span></button>
+        </div>
+        {% endverbatim %}
     </div>
 </div>
+<div class="row">
+    <div class="col-md-8" data-role='modal'></div>
 </div>
-
+</div>
 
 
 
