@@ -367,3 +367,38 @@ input,textarea,select,h1,h2,h3,h4,h5,h6 {
     color: #AAAAAA;
     margin-left: 15px;
 }
+
+/* under construction*/
+.bg-under-construction{
+  background: #454545;
+  
+}
+.under-construction-box h4{
+  font-size: 10px;
+  margin: 4px 0;
+}
+.under-construction-box h1{
+  font-size: 24px;
+  font-family: SimHei;
+  font-weight: bold;
+  margin: 2px 0 11px;
+}
+.under-construction-box .white{
+  color: #fff;
+}
+.under-construction-box .yellow{
+  color: #f9c40b;
+}
+.under-construction-box{
+  width: 400px;
+  margin: 200px auto 0;
+   text-align: center;
+}
+.under-construction-icon{
+  background: url("../img/under-construction.jpg")  0 0 no-repeat;
+  width: 151px;
+  height: 138px;
+  display: inline-block;;
+
+}
+/* end under construction*/
