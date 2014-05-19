@@ -47,3 +47,7 @@ note_inbox_show:
 settings_avatar:
     pattern:  /settings/avatar
     defaults: { _controller: RedwoodWebBundle:Settings:avatar }
+
+settings_avatar_crop:
+    pattern: /settings/avatar/crop 
+    defaults: { _controller:RedwoodWebBundle:Settings:avatarCrop }
