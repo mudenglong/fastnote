@@ -4,6 +4,9 @@ namespace Redwood\WebBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Redwood\Common\FileToolkit;
+
+use Imagine\Gd\Imagine;
+
 class SettingsController extends BaseController
 {
 
@@ -66,8 +69,14 @@ class SettingsController extends BaseController
         // $filename = str_replace(array('..' , '/', '\\'), '', $filename);
 
         $pictureFilePath = $this->container->getParameter('redwood.upload.public_directory') . '/tmp/' . $filename;
+
+        $imagine = new Imagine();
+        $image = $imagine->open($pictureFilePath);
+        $naturalSize = $image->getSize();
+
         
-        var_dump($filename);
+        
+        var_dump($naturalSize);
         return $this->render('RedwoodWebBundle:Settings:avatar-crop.html.twig', array(
             'pictureUrl' => '12',
         ));
