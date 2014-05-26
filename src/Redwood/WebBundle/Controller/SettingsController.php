@@ -74,11 +74,14 @@ class SettingsController extends BaseController
         $image = $imagine->open($pictureFilePath);
         $naturalSize = $image->getSize();
 
-        
-        
-        var_dump($naturalSize);
+        $scaledSize = $naturalSize->widen(270)->heighten(270);
+        $pictureUrl = $this->container->getParameter('redwood.upload.public_url_path') . '/tmp/' . $filename;
+
+
         return $this->render('RedwoodWebBundle:Settings:avatar-crop.html.twig', array(
-            'pictureUrl' => '12',
+            'pictureUrl' => $pictureUrl,
+            'naturalSize' => $naturalSize,
+            'scaledSize' => $scaledSize,
         ));
     }
 }
