@@ -5,6 +5,9 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Redwood\Service\Common\BaseService;
 use Redwood\Service\User\UserService;
 
+use Imagine\Gd\Imagine;
+
+
 class UserServiceImpl extends BaseService implements UserService
 {
     public function getUser($id)
@@ -261,6 +264,37 @@ class UserServiceImpl extends BaseService implements UserService
     public function searchUserCount(array $conditions)
     {
         return $this->getUserDao()->searchUserCount($conditions);
+    }
+
+    public function changeAvatar($userId, $filePath, array $options)
+    {
+        $user = $this->getUser($userId);
+        if (empty($user)) {
+            throw $this->createServiceException('用户不存在，头像更新失败！');
+        }
+
+        $imagine = new Imagine();
+        $rawImage = $imagine->open($filePath);
+
+        $largeImage = $rawImage->copy();
+        $largeImage->crop(new Point($options['x'], $options['y']), new Box($options['width'], $options['height']));
+        $largeImage->resize(new Box(200, 200));
+        $largeFilePath = "{$pathinfo['dirname']}/{$pathinfo['filename']}_large.{$pathinfo['extension']}";
+        $largeImage->save($largeFilePath, array('quality' => 90));
+        // $largeFileRecord = $this->getFileService()->uploadFile('user', new File($largeFilePath));
+
+        $largeImage->resize(new Box(120, 120));
+        $mediumFilePath = "{$pathinfo['dirname']}/{$pathinfo['filename']}_medium.{$pathinfo['extension']}";
+        $largeImage->save($mediumFilePath, array('quality' => 90));
+        // $mediumFileRecord = $this->getFileService()->uploadFile('user', new File($mediumFilePath));
+
+        $largeImage->resize(new Box(48, 48));
+        $smallFilePath = "{$pathinfo['dirname']}/{$pathinfo['filename']}_small.{$pathinfo['extension']}";
+        $largeImage->save($smallFilePath, array('quality' => 90));
+        // $smallFileRecord = $this->getFileService()->uploadFile('user', new File($smallFilePath));
+
+
+
     }
 
     private function getUserDao()

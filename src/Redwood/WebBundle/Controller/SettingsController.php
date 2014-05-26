@@ -70,6 +70,12 @@ class SettingsController extends BaseController
 
         $pictureFilePath = $this->container->getParameter('redwood.upload.public_directory') . '/tmp/' . $filename;
 
+        if($request->getMethod() == 'POST') {
+            $options = $request->request->all();
+            $this->getUserService()->changeAvatar($currentUser['id'], $pictureFilePath, $options);
+            return $this->redirect($this->generateUrl('settings_avatar'));
+        }
+
         $imagine = new Imagine();
         $image = $imagine->open($pictureFilePath);
         $naturalSize = $image->getSize();
