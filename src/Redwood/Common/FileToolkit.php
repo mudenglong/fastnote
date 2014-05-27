@@ -11,6 +11,7 @@ class FileToolkit
     public static function isImageFile(File $file) 
     {
         $ext = self::getFileExtension($file);
+        // @todo
         // return in_array(strtolower($ext), explode(' ', self::getImageExtensions()));
     }
 

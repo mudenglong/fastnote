@@ -73,13 +73,18 @@ class SettingsController extends BaseController
         if($request->getMethod() == 'POST') {
             $options = $request->request->all();
             $this->getUserService()->changeAvatar($currentUser['id'], $pictureFilePath, $options);
-            return $this->redirect($this->generateUrl('settings_avatar'));
+            // return $this->redirect($this->generateUrl('settings_avatar'));
         }
 
-        $imagine = new Imagine();
-        $image = $imagine->open($pictureFilePath);
-        $naturalSize = $image->getSize();
+        try {
+            $imagine = new Imagine();
+            $image = $imagine->open($pictureFilePath);
+        } catch (\Exception $e) {
+            @unlink($pictureFilePath);
+            return $this->createMessageResponse('error', '该文件为非图片格式文件，请重新上传。');
+        }
 
+        $naturalSize = $image->getSize();
         $scaledSize = $naturalSize->widen(270)->heighten(270);
         $pictureUrl = $this->container->getParameter('redwood.upload.public_url_path') . '/tmp/' . $filename;
 

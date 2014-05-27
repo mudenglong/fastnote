@@ -2,10 +2,14 @@
 namespace Redwood\Service\User\Impl;
 
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 use Redwood\Service\Common\BaseService;
 use Redwood\Service\User\UserService;
 
 use Imagine\Gd\Imagine;
+use Imagine\Image\Box;
+use Imagine\Image\Point;
 
 
 class UserServiceImpl extends BaseService implements UserService
@@ -273,30 +277,20 @@ class UserServiceImpl extends BaseService implements UserService
             throw $this->createServiceException('用户不存在，头像更新失败！');
         }
 
-        $imagine = new Imagine();
-        $rawImage = $imagine->open($filePath);
+        // $fileRecord = $this->getFileService()->buildUserAvatar($filePath, $options);
 
-        $largeImage = $rawImage->copy();
-        $largeImage->crop(new Point($options['x'], $options['y']), new Box($options['width'], $options['height']));
-        $largeImage->resize(new Box(200, 200));
-        $largeFilePath = "{$pathinfo['dirname']}/{$pathinfo['filename']}_large.{$pathinfo['extension']}";
-        $largeImage->save($largeFilePath, array('quality' => 90));
-        // $largeFileRecord = $this->getFileService()->uploadFile('user', new File($largeFilePath));
+       
 
-        $largeImage->resize(new Box(120, 120));
-        $mediumFilePath = "{$pathinfo['dirname']}/{$pathinfo['filename']}_medium.{$pathinfo['extension']}";
-        $largeImage->save($mediumFilePath, array('quality' => 90));
-        // $mediumFileRecord = $this->getFileService()->uploadFile('user', new File($mediumFilePath));
-
-        $largeImage->resize(new Box(48, 48));
-        $smallFilePath = "{$pathinfo['dirname']}/{$pathinfo['filename']}_small.{$pathinfo['extension']}";
-        $largeImage->save($smallFilePath, array('quality' => 90));
-        // $smallFileRecord = $this->getFileService()->uploadFile('user', new File($smallFilePath));
-
-
+        return false;
+        // return  $this->getUserDao()->updateUser($userId, array(
+        //     'smallAvatar' => $smallFileRecord['uri'],
+        //     'mediumAvatar' => $mediumFileRecord['uri'],
+        //     'largeAvatar' => $largeImageUri,
+        // ));
 
     }
 
+    
     private function getUserDao()
     {
         return $this->createDao('User.UserDao');
@@ -310,6 +304,11 @@ class UserServiceImpl extends BaseService implements UserService
     protected function getLogService()
     {
         return $this->createService('System.LogService');        
+    }
+
+    protected function getFileService()
+    {
+        return $this->createService('Content.FileService');        
     }
 
 }
