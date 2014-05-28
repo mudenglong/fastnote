@@ -48,9 +48,6 @@ class SettingsController extends BaseController
                     'file' => $fileName,
                     )
                 ));
-
-                
-
             }
 
         }
@@ -66,10 +63,9 @@ class SettingsController extends BaseController
         $currentUser = $this->getCurrentUser();
         $filename = $request->query->get('file');
         $filename = str_replace('!', '.', $filename);
-        // $filename = str_replace(array('..' , '/', '\\'), '', $filename);
 
         $pictureFilePath = $this->container->getParameter('redwood.upload.public_directory') . '/tmp/' . $filename;
-        
+
         if($request->getMethod() == 'POST') {
             $options = $request->request->all();
             $this->getUserService()->changeAvatar($currentUser['id'], $pictureFilePath, $options);

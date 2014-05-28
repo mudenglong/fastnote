@@ -51,3 +51,12 @@ settings_avatar:
 settings_avatar_crop:
     pattern: /settings/avatar/crop 
     defaults: { _controller:RedwoodWebBundle:Settings:avatarCrop }
+
+
+
+wecker_html_build:
+    pattern: /html/build
+    defaults: { _controller:RedwoodWebBundle:Wecker:html }
+wecker_html_crop:
+    pattern: /html/build/crop
+    defaults: { _controller:RedwoodWebBundle:Wecker:htmlCrop }

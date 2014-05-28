@@ -8,6 +8,9 @@
 </head>
 
 <body>
+    {% block wrapBox %}
+            
+           
     {% set nav = nav|default(null) %}
 
     <div class="wrap">
@@ -70,6 +73,7 @@
             {% endblock %}
         </div>
     </div>
+    {% endblock %}
 
     <script>
         var app = {};
