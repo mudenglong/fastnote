@@ -1,0 +1,20 @@
+{% extends 'RedwoodWebBundle::layout.html.twig' %}
+
+{% block title %}html build {% endblock %}
+
+{% set script_controller = 'settings/html' %}
+
+{% block wrapBox %}
+
+    <form  method="post" enctype="multipart/form-data">
+
+        
+        {{ form_label(form.html, '新头像') }}
+        {{ form_widget(form.html,{'attr' : { 'accept': 'image/gif,image/jpeg,image/png'}}) }}
+
+        {{ form_rest(form) }}
+        <button type="submit" class="btn btn-primary">上传页面jpg</button>
+         
+    </form>
+
+{% endblock %}
