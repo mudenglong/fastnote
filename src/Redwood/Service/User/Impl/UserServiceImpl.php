@@ -277,16 +277,30 @@ class UserServiceImpl extends BaseService implements UserService
             throw $this->createServiceException('用户不存在，头像更新失败！');
         }
 
-        // $fileRecord = $this->getFileService()->buildUserAvatar($filePath, $options);
+        $avatarRecord = $this->getFileService()->uploadAvatar($filePath, $options);
+        $smallAvatarUri = $avatarRecord['smallImageInfo']['directory'].$avatarRecord['smallImageInfo']['filename'];
+        $mediumAvatarUri = $avatarRecord['mediumImageInfo']['directory'].$avatarRecord['mediumImageInfo']['filename'];
+        $largeAvatarUri = $avatarRecord['largeImageInfo']['directory'].$avatarRecord['largeImageInfo']['filename'];
+        
+        @unlink($filePath);
 
-       
+        $oldAvatars = array(
+            'smallAvatar' => $user['smallAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['smallAvatar']) : null,
+            'mediumAvatar' => $user['mediumAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['mediumAvatar']) : null,
+            'largeAvatar' => $user['largeAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['largeAvatar']) : null,
+        );
 
-        return false;
-        // return  $this->getUserDao()->updateUser($userId, array(
-        //     'smallAvatar' => $smallFileRecord['uri'],
-        //     'mediumAvatar' => $mediumFileRecord['uri'],
-        //     'largeAvatar' => $largeImageUri,
-        // ));
+        array_map(function($oldAvatar){
+            if (!empty($oldAvatar)) {
+                @unlink($oldAvatar);
+            }
+        }, $oldAvatars);
+
+        return  $this->getUserDao()->updateUser($userId, array(
+            'smallAvatar' => $smallAvatarUri,
+            'mediumAvatar' => $mediumAvatarUri,
+            'largeAvatar' =>  $largeAvatarUri,
+        ));
 
     }
 

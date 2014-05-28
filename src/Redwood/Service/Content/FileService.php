@@ -5,6 +5,8 @@ use Symfony\Component\HttpFoundation\File\File;
 
 interface FileService
 {
-	public function buildUserAvatar($filePath, $options);
+	public function uploadAvatar($filePath, $options);
+
+    public function sqlUriConvertAbsolutUri($sqlUri);
 
 }

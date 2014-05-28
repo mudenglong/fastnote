@@ -15,64 +15,78 @@ use Redwood\Common\FileToolkit;
 class FileServiceImpl extends BaseService implements FileService
 {
 
-    private function oprateAvatar($image, $imageTarget){
+    private function newTempAvatar($image, $imageTarget)
+    {
         $image->resize(new Box($imageTarget['width'], $imageTarget['height']));
         $image->save($imageTarget['filePath'], array('quality' => 90));
 
-        $file = new File($imageTarget['filePath']);
-        $newLargeImage = $this->generateUri($file);
-        $finalPath = $this->getKernel()->getParameter('redwood.upload.public_directory') . '/' . str_replace('public://', '', $newLargeImage['directory']);
-
-        $file->move($finalPath, $newLargeImage["filename"]);
+        return new File($imageTarget['filePath']);
     }
 
-    public function buildUserAvatar($filePath, $options)
+    public function uploadAvatar($filePath, $options)
     {
         
         $imagine = new Imagine();
         $basicImage = $imagine->open($filePath)->copy();
-
         $basicImage->crop(new Point($options['x'], $options['y']), new Box($options['width'], $options['height']));
 
         $pathinfo = pathinfo($filePath);
+
         $largeImageTarget = array(
                 'width' => 200,
                 'height' => 200,
                 'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_large.{$pathinfo['extension']}",
         );
 
-        $imageUri['large'] = $this->oprateAvatar($basicImage, $largeImageTarget);
+        $mediumImageTarget = array(
+                'width' => 120,
+                'height' => 120,
+                'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_medium.{$pathinfo['extension']}",
+        );
 
-        // $abc = new File($largeFilePath);
-        // $newLargeImage = $this->generateUri($abc);
-        // $finalPath = $this->getKernel()->getParameter('redwood.upload.public_directory') . '/' . str_replace('public://', '', $newLargeImage['directory']);
+        $smallImageTarget = array(
+                'width' => 48,
+                'height' => 48,
+                'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_small.{$pathinfo['extension']}",
+        );
 
-        // $abc->move($finalPath, $newLargeImage["filename"]);
+        $tempLargeImage = $this->newTempAvatar($basicImage, $largeImageTarget);
+        $largeImageInfo = $this->generateUri($tempLargeImage);
+        $largeAvatar = $this->saveAvatarFile($largeImageInfo, $tempLargeImage);
 
-        var_dump($filePath);
+        $tempMediumImage = $this->newTempAvatar($basicImage, $mediumImageTarget);
+        $mediumImageInfo = $this->generateUri($tempMediumImage);
+        $mediumAvatar = $this->saveAvatarFile($mediumImageInfo, $tempMediumImage);
 
+        $tempSmallImage = $this->newTempAvatar($basicImage, $smallImageTarget);
+        $smallImageInfo = $this->generateUri($tempSmallImage);
+        $smallAvatar = $this->saveAvatarFile($smallImageInfo, $tempSmallImage);
+
+        return array(
+            'largeAvatar' => $largeAvatar, 
+            'mediumAvatar' => $mediumAvatar, 
+            'smallAvatar' => $smallAvatar,
+            'largeImageInfo' => $largeImageInfo,
+            'mediumImageInfo' => $mediumImageInfo,
+            'smallImageInfo' => $smallImageInfo,
+        );
 
     }
 
+    public function sqlUriConvertAbsolutUri($sqlUri)
+    {
+        return $this->getKernel()->getParameter('redwood.upload.public_directory') . '/' . str_replace('public://', '', $sqlUri);
+    }
 
-	private function saveFile($file, $uri)
-	{
-		$parsed = $this->parseFileUri($uri);
-
-		if ($parsed['access'] == 'public') {
-			$directory = $this->getKernel()->getParameter('topxia.upload.public_directory');
-		} else {
-			$directory = $this->getKernel()->getParameter('topxia.upload.private_directory');
-		}
-
-		if (!is_writable($directory)) {
-			throw $this->createServiceException("文件上传路径{$directory}不可写，文件上传失败。");
-		}
-		$directory .= '/' . $parsed['directory'];
-
-		return $file->move($directory, $parsed['name']);
-	}
-
+    private function saveAvatarFile($newImageInfo, $tempImage)
+    {
+        $finalPath = $this->sqlUriConvertAbsolutUri($newImageInfo['directory']);
+        // if (!is_writable($finalPath)) {
+        //     throw $this->createServiceException("文件上传路径{$finalPath}不可写，文件上传失败。");
+        // }
+        return $tempImage->move($finalPath, $newImageInfo["filename"]);
+    }
+	
 
     private function generateUri(File $file)
     {
@@ -89,9 +103,9 @@ class FileServiceImpl extends BaseService implements FileService
             throw $this->createServiceException('获取文件扩展名失败！');
         }
 
-        $newImage["directory"] = 'public://user/'.date('Y') . '/' . date('m-d') . '/' . date('His');;
+        $newImage["directory"] = 'public://user/'.date('Y') . '/' . date('m-d') . '/';
        
-        $newImage["filename"] = substr(uniqid(), - 6) . substr(uniqid('', true), - 6) . '.' . $ext;
+        $newImage["filename"] = date('His') . substr(uniqid(), - 6) . substr(uniqid('', true), - 6) . '.' . $ext;
         
         return $newImage;
     }
