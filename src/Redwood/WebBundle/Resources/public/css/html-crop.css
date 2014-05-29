@@ -3,3 +3,17 @@
   width: 960px;
   margin: 0 auto;
 }
+
+.abc {
+position: absolute;
+opacity: 0.8;
+}
+.jcrop-hline {
+    height: 2px;
+    width: 100%;
+}
+.html-crop-line{
+    background: #fff url(../img/html-crop.gif);
+    font-size: 0;
+    position: absolute;
+}

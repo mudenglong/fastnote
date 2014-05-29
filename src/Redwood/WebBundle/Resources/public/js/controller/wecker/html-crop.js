@@ -3,7 +3,12 @@ define(function(require, exports, module) {
 
     
     exports.run = function() {
-        var demo = new HtmlCropper({ element: '#demo' }).render();
+        var demo = new HtmlCropper({ 
+                element: '#demo', 
+                img: '[data-role="html-img"]',
+                setCutOffLine: true,
+            }).render();
+        
     };
 
 });
