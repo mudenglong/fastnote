@@ -8,7 +8,9 @@ define(function(require, exports, module) {
                 img: '[data-role="html-img"]',
                 setCutOffLine: true,
             }).render();
-        
+
+
+
     };
 
 });

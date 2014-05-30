@@ -54,16 +54,27 @@ define(function(require, exports, module) {
         {
             var perImageHeight = this.get('perImageHeight');
             var originImgHeight = this.get('originImgHeight');
-            var line = Array();
+            var lines = Array();
 
             var lineNum = Math.ceil(originImgHeight/perImageHeight);
-            for (var i = 0; i < lineNum; i++) 
-            {
-                line[i] = new Line();
-                console.log(i);
-            };
+            // for (var i = 0; i < lineNum; i++) 
+            // {
+            //     lines[i] = new Line();
+            // };
 
-            console.log(line);
+            var test = new Line({element: '#demo'}).render();
+            test.on('abc', function(data) {
+                console.log('data:',data);
+            });
+
+            
+
+            
+            // $.each(lines, function( key, line) {
+            //     line.on('getTempLineHtml', function(html){
+            //         console.log('html:',html);
+            //     });
+            // });
 
 
 
