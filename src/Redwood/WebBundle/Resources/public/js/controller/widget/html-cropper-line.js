@@ -1,20 +1,21 @@
 define(function(require, exports, module) {
-    var Widget = require('widget');
+    var Widget = require('widget'),
+        Templatable = require('templatable');
 
     var line = Widget.extend({
-
+        Implements: Templatable,
         events: {
-            'click .html-show' : 'buildHtml',
+            'click #testH3' : 'buildHtml',
         },
 
+
         setup: function(){
-            // this.buildHtml();
+            console.log(this.element);
         },
 
         buildHtml: function() {
-
-            // @todo use template
-            var html = '<div class="html-crop-line" data-role="line-temp"></div>';
+            
+            var html = 'aaaaaaaaaaaa';
             this.trigger('getTempLineHtml', html);
             console.log("111");
             this.trigger('abc', '7777777');

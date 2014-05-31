@@ -8,6 +8,7 @@ seajs.config({
 		"jquery.jcrop": "jquery-plugin/jcrop/0.9.12/jcrop",
 		"jquery.jcrop-css": "jquery-plugin/jcrop/0.9.12/jcrop.css",
 		'widget': 'arale/widget/1.1.1/widget',
+		"templatable": "arale/templatable/0.9.1/templatable",
 	},
 
 	// 预加载项

@@ -11,6 +11,11 @@ define(function(require, exports, module) {
             */
             img: null, 
 
+            /**
+             * 真实图片大小 
+             * example trueSize:[width, height]
+             */
+            trueSize: null,
             setCutOffLine: false,
             perImageHeight: 250,
 
@@ -18,19 +23,34 @@ define(function(require, exports, module) {
             /*do not change under value*/
             originImgWidth: 0,
             originImgHeight: 0,
+            xscale: 1,
+            yscale: 1,
+
+            //@todo
+            xlineTemplate: null,
 
         },
         setup: function()
         {
             if (this.get('img') == null) {
-                alert("图片不能为空!");
-                return false;
+                throw new Error('Please set img like --> img:#demo-img');
             }
  
             this._initLoadImg();
 
+
+            /*if options contain trueSize*/
+            var trueSize = this.get('trueSize');
+            if (trueSize) {
+                this.set('xscale', trueSize[0] / this.get('originImgWidth'));
+                this.set('yscale', trueSize[1] / this.get('originImgHeight'));
+            }
+            console.log(this.get('xscale'));
+            console.log(this.get('yscale'));
+
+            /*if options contain setCutoffLine*/
             if (this.get('setCutOffLine') != false) {
-                this.setCutOffLine();
+                this.setCutOffLine(this.get('originImgHeight'), this.get('perImageHeight'));
             }
 
         },
@@ -44,39 +64,67 @@ define(function(require, exports, module) {
                 this.set('originImgHeight', $img.height());
        
             } else{
-                alert("请指定<img>所在的标签上!");
+                throw new Error('Load img Error');
             };
             
 
         },
-
-        setCutOffLine: function()
+        _convertNaturalSize: function(origin, scale)
         {
-            var perImageHeight = this.get('perImageHeight');
-            var originImgHeight = this.get('originImgHeight');
+            if (scale == 'xscale') {
+                return origin*this.get('xscale');
+            } else if(scale == 'yscale'){
+                return origin*this.get('yscale');
+            }else{
+                throw new Error('_convertNaturalSize function Error');
+                return false;
+            };
+            
+        },
+        _convertOriginSize: function(natural, scale)
+        {
+            if (scale == 'xscale') {
+                return natural/this.get('xscale');
+            } else if(scale == 'yscale'){
+                return natural/this.get('yscale');
+            }else{
+                throw new Error('_convertOriginSize function Error');
+                return false;
+            };
+            
+        },
+        _calculateLineNum: function(imgHeight, perImageHeight)
+        {
+            return Math.floor(imgHeight / perImageHeight);
+        },
+
+        setCutOffLine: function(originImgHeight, perImageHeight)
+        {
+            var originPerImageHeight = Math.round(this._convertOriginSize(perImageHeight, 'yscale'));
+            var lineNum = this._calculateLineNum(originImgHeight, originPerImageHeight);
+            
             var lines = Array();
+            var top = 0;
 
-            var lineNum = Math.ceil(originImgHeight/perImageHeight);
-            // for (var i = 0; i < lineNum; i++) 
-            // {
-            //     lines[i] = new Line();
-            // };
+            for (var i = 0; i < lineNum; i++) 
+            {
+                top += originPerImageHeight;
+                lines[i] = new Line({
+                    template: '<div class="html-crop-xline-wrap" style="position: absolute; width:100%;top:{{top}}"><div class="html-crop-xline" data-crop-html="xline{{number}}" ></div></div>',
+                    model: {
+                        'number': i,
+                        'top': top +'px',
+                    },
+                    parentNode: '[data-crop-html="img-wrap"]'
+                }).render();
+            };  
 
-            var test = new Line({element: '#demo'}).render();
-            test.on('abc', function(data) {
-                console.log('data:',data);
-            });
 
-            
 
-            
-            // $.each(lines, function( key, line) {
-            //     line.on('getTempLineHtml', function(html){
-            //         console.log('html:',html);
-            //     });
+
+            // test.on('getTempLineHtml', function(data) {
+            //     console.log('data---:',data);
             // });
-
-
 
         }
 
