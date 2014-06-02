@@ -30,6 +30,14 @@ define(function(require, exports, module) {
             xlineTemplate: null,
 
         },
+        events: {
+            'click .img-wrap' : 'test',
+            // 'click [data-crop-html^=xline]' : 'dragLine',
+        },
+        test:function()
+        {
+            console.log('touch me!!! img-wrap')
+        },
         setup: function()
         {
             if (this.get('img') == null) {
@@ -110,12 +118,13 @@ define(function(require, exports, module) {
             {
                 top += originPerImageHeight;
                 lines[i] = new Line({
-                    template: '<div class="html-crop-xline-wrap" style="position: absolute; width:100%;top:{{top}}"><div class="html-crop-xline" data-crop-html="xline{{number}}" ></div></div>',
+                    template: '<div><div class="html-crop-xline-wrap" style="position: absolute; width:100%;top:{{top}}"><div class="html-crop-xline" data-crop-html="xline{{number}}" ></div></div></div>',
                     model: {
                         'number': i,
                         'top': top +'px',
                     },
-                    parentNode: '[data-crop-html="img-wrap"]'
+                    parentNode: '[data-crop-html="img-wrap"]',
+                    container: '[data-crop-html="img-wrap"]'
                 }).render();
             };  
 
