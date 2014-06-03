@@ -13,9 +13,11 @@ define(function(require, exports, module) {
                 element: '#demo', 
                 img: '[data-role="html-img"]',
                 trueSize: [naturalWidth, naturalHeight],
-                setCutOffLine: true,
+                setCutOffLine: true
             }).render();
 
+        var linePos = demo.onMoveLine();
+        // console.log(aaaa);
 
 
     };

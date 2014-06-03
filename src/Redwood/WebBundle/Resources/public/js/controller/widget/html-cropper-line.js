@@ -11,17 +11,21 @@ define(function(require, exports, module) {
             * auto init by function _initContainer()
             */
             container: null, 
+            
+
+            /*do not change under value*/
+      
 
         },
         events: {
-            'click .html-crop-xline-wrap' : 'dragLine',
-            // 'click [data-crop-html^=xline]' : 'dragLine',
+            // 'mousemove #demo' : 'dragLine',
+            // 'mousedown [data-crop-html^=wrap]' : 'dragLine',
         },
 
 
         setup: function(){
             this._initContainer(this.get('parentNode'));
-            console.log(this.element);
+
         },
         _initContainer: function(container)
         {
@@ -29,51 +33,29 @@ define(function(require, exports, module) {
         },
 
         dragLine: function(ev) {
-            // this.trigger('getTempLineHtml', html);
             console.log("111");
-
+            this.on('getHtml', function(a){
+                console.log(a);
+            });
+            this.trigger('getTempLineHtml', '12121212');
            
-            var mousePos = this.getMouseOffset(this.get('container'), ev);
-            console.log(mousePos);
+            // var mousePos = this.getMouseOffset(this.get('container'), ev);
+            // return mousePos;
 
 
-        },
-
-        /*return mouse coordinates on windows*/
-        _mouseCoords:function(event)
-        {
-            var e = event || window.event;
-            var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
-            var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-            var x = e.pageX || e.clientX + scrollX;
-            var y = e.pageY || e.clientY + scrollY;
-            return { 'x': x, 'y': y };
-            // return { 'x': e.pageX, 'y': e.pageY };
-        },
-
-        _getContainerOffset: function(container)
-        {
-
-            var offset = $(container).offset();
-            return {
-                'x': Math.round(offset.left),
-                'y': Math.round(offset.top),
-            };
-        },
-
-        /*return mouse coordinates on container*/
-        getMouseOffset: function(container, ev)
-        {
-            var mousePos = this._mouseCoords(ev);
-            var containerPos = this._getContainerOffset(container);
-
-            return {
-                'x':Math.max((mousePos.x - containerPos.x),0),
-                'y':mousePos.y - containerPos.y,
-
-            };
 
         },
+        // dragLineByMouse: function(mousePos){
+        //     console.log(mousePos);
+        //     var wrapHtml = this.$('[data-crop-html^=wrap]')[0];
+
+        //     $(wrapHtml).css({'top':mousePos.y});
+        //     // $(this).find('[data-crop-html^=wrap]').css({'border':'1px solid red'});
+
+            
+        // },
+
+      
 
 
     });

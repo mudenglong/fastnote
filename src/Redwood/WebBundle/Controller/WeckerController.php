@@ -63,7 +63,7 @@ class WeckerController extends BaseController
         }
 
         $naturalSize = $image->getSize();
-        $scaledSize = $naturalSize->widen(960)->heighten(960);
+        $scaledSize = $naturalSize->widen(1000)->heighten(1000);
         $pictureUrl = $this->container->getParameter('redwood.upload.public_url_path') . '/htmlTemp/' . $filename;
 
         return $this->render('RedwoodWebBundle:Wecker:html-crop.html.twig', array(
