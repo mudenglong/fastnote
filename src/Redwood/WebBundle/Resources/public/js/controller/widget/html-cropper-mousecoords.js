@@ -13,8 +13,9 @@ define(function(require, exports, module) {
 
             var res = {
                 'x':Math.max((mousePos.x - containerPos.x),0),
-                'y':mousePos.y - containerPos.y,
+                'y':Math.min((mousePos.y - containerPos.y), containerPos.height),
             };
+
             return res;
 
         },
@@ -34,9 +35,11 @@ define(function(require, exports, module) {
         {
 
             var offset = $(container).offset();
+            var height = $(container).height();
             return {
-                'x': Math.round(offset.left),
-                'y': Math.round(offset.top),
+                'x' : Math.round(offset.left),
+                'y' : Math.round(offset.top),
+                'height' : height,
             };
         },
     }

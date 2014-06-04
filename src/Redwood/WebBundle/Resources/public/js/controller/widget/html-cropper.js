@@ -4,7 +4,7 @@ define(function(require, exports, module) {
         MouseCoords = require("../widget/html-cropper-mousecoords");
     require("../../../css/html-crop.css");
 
-    var htmlCropper = Widget.extend({
+    var HtmlCropper = Widget.extend({
         attrs: {
             /*required  
             * example  img: #demo-img
@@ -34,7 +34,7 @@ define(function(require, exports, module) {
             xlineTemplate: null,
 
             // Callbacks / Event Handlers
-            onMoveLine: function () {}
+            getLinePos: function () { }
 
 
         },
@@ -42,61 +42,6 @@ define(function(require, exports, module) {
             'mousedown  [data-crop-html^=wrap]' : 'mousedownFun',
             'mouseup .html-crop-con' : 'mouseupFun',
         },
-
-        mousedownFun:function(e)
-        {
-            this.set('beDraging', true);
-            if (this.get('beDraging')) {
-                this.$('.img-wrap').on('mousemove', { lineTarget: e.currentTarget }, this.dragLine);
-            };       
-        },
-
-        mouseupFun:function()
-        {
-            this.set('beDraging', false);
-            this.$('.img-wrap').off('mousemove',this.dragLine);
-            this.onMoveLine();
-        },
-
-        dragLine: function(ev) {
-            var mousePos = MouseCoords.getMouseOffset('[data-crop-html="img-wrap"]', ev);
-            $(ev.data.lineTarget).css({'top':mousePos.y});
-
-        },
-        onMoveLine: function()
-        {
-            var abc = "123123123";
-            var obj = this;
-            var lines = {};
-
-            $('[data-crop-html^=wrap]').each(function( index ) {
-                var top = $(this).css('top');
-                if(obj.get('yscale') != 1)
-                {
-                    lines = {
-                        index:top*obj.get('yscale');
-                    };
-                }
-            });
-            return abc;
-        },
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         setup: function()
         {
@@ -134,6 +79,7 @@ define(function(require, exports, module) {
             
 
         },
+
         _convertNaturalSize: function(origin, scale)
         {
             if (scale == 'xscale') {
@@ -146,6 +92,7 @@ define(function(require, exports, module) {
             };
             
         },
+
         _convertOriginSize: function(natural, scale)
         {
             if (scale == 'xscale') {
@@ -158,6 +105,7 @@ define(function(require, exports, module) {
             };
             
         },
+
         _calculateLineNum: function(imgHeight, perImageHeight)
         {
             return Math.floor(imgHeight / perImageHeight);
@@ -182,19 +130,58 @@ define(function(require, exports, module) {
                     },
                     parentNode: '[data-crop-html="img-wrap"]',
                 }).render();
-            };  
+            };
 
+        },
 
+        mousedownFun:function(e)
+        {
+            this.set('beDraging', true);
+            if (this.get('beDraging')) {
+                this.$('.img-wrap').on('mousemove', { lineTarget: e.currentTarget }, this.dragLine);
+            };       
+        },
 
+        mouseupFun:function()
+        {
+            this.set('beDraging', false);
+            this.$('.img-wrap').off('mousemove',this.dragLine);
 
-            // test.on('getTempLineHtml', function(data) {
-            //     console.log('data---:',data);
-            // });
+            var lines = this.getLinePos();
+            this.trigger('getLine', lines);
 
+        },
+
+        dragLine: function(ev) {
+            var mousePos = MouseCoords.getMouseOffset('[data-crop-html="img-wrap"]', ev);
+            $(ev.data.lineTarget).css({'top':mousePos.y});
+
+        },
+
+        getLinePos: function()
+        {
+            var obj = this,
+                lines = {},
+                yscale = obj.get('yscale');
+
+            $('[data-crop-html^=wrap]').each(function( index ) {
+                var topArr = $(this).css('top').split("px"),
+                    top = topArr[0];
+
+                if(yscale != 1)
+                {
+                    lines[index] = {
+                        'naturalTop' : Math.round(top * yscale),
+                        'top' : parseInt(top),
+                    };
+                }
+            });
+
+            return lines;
         }
 
     });
 
-    module.exports = htmlCropper;
+    module.exports = HtmlCropper;
 
 });

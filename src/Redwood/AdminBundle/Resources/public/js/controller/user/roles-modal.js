@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Notify = require('common/bootstrap-notify');
 
 	exports.run = function() {
-            console.log("fsdfd");
+
         var $form = $("#user-roles-form"),
             isTeacher = $form.find('input[value=ROLE_TEACHER]').prop('checked');
 
