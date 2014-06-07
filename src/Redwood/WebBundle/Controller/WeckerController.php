@@ -44,14 +44,22 @@ class WeckerController extends BaseController
     }
     public function htmlCropAction(Request $request)
     {
+
+
         $filename = $request->query->get('file');
         $filename = str_replace('!', '.', $filename);
 
         $pictureFilePath = $this->container->getParameter('redwood.upload.public_directory') . '/htmlTemp/' . $filename;
 
-        if($request->getMethod()=='post')
+        if($request->getMethod()=='POST')
         {
             var_dump("wooh!");
+         
+            $options = $request->request->all();
+            var_dump($options);
+            // return false;
+            return $this->createJsonResponse(array('status' => 'ok', 'html' => 'okkkk'));
+   
         }
 
         try {
