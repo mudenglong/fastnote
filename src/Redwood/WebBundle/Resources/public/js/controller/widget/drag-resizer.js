@@ -64,10 +64,8 @@ define(function(require, exports, module) {
         {
             this.initCanvas(this.get('canvasID'));
 
-            // add an orange rectangle
+            // add rectangle
             this.addRectangle(200, 200, 40, 40, '#aaff4e');
-
-            // add a smaller blue rectangle
             this.addRectangle(25, 90, 25, 25, '#2BB8FF');
 
             //@todo 把时间refresh的操作显示出来
