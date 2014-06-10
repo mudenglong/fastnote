@@ -27,6 +27,7 @@ define(function(require, exports, module) {
             'mousedown .img-wrap' : 'mousedownFun',
             'mousemove .img-wrap' : 'myMouseMove',
             'mouseup .html-crop-con' : 'myMouseUp',
+            'dblclick .img-wrap' : 'myDbclick'
         },
         attrs: {
             /*
@@ -50,6 +51,9 @@ define(function(require, exports, module) {
             beDragging: false,
             selection: null,
 
+            //八个角上的拖动手柄
+            selectionHandles : [],
+
 
 
         },
@@ -61,12 +65,12 @@ define(function(require, exports, module) {
             this.initCanvas(this.get('canvasID'));
 
             // add an orange rectangle
-            this.addRectangle(200, 200, 40, 40, '#FFC02B');
+            this.addRectangle(200, 200, 40, 40, '#aaff4e');
 
             // add a smaller blue rectangle
             this.addRectangle(25, 90, 25, 25, '#2BB8FF');
 
-
+            //@todo 把时间refresh的操作显示出来
             this.draw();
             // this.debugStopDraw();
         },
@@ -139,7 +143,7 @@ define(function(require, exports, module) {
                     obj.valid = true;
                 }
                 // console.log('valid' + obj.valid);
-            }, 1000);
+            }, 30);
         },
 
 
@@ -199,13 +203,13 @@ define(function(require, exports, module) {
         myMouseMove: function(e){
             if (this.get('beDragging')) {
             
-                
-      mouse = this.getMouse(e);
-      // We don't want to drag the object by its top-left corner, we want to drag it
-      // from where we clicked. Thats why we saved the offset and use it here
-      this.get('selection').x = mouse.x - this.get('dragOffsetX');
-      this.get('selection').y = mouse.y - this.get('dragOffsetY');   
-      this.valid = false;// Something's dragging so we must redraw
+                mouse = this.getMouse(e);
+                // We don't want to drag the object by its top-left corner, we want to drag it
+                // from where we clicked. Thats why we saved the offset and use it here
+                this.get('selection').x = mouse.x - this.get('dragOffsetX');
+                this.get('selection').y = mouse.y - this.get('dragOffsetY');   
+                // Something is dragging so we must redraw
+                this.valid = false;
 
 
 
@@ -218,6 +222,13 @@ define(function(require, exports, module) {
         {
             this.set('beDragging', false);
         },
+        myDbclick: function(e)
+        {
+            var mouse = this.getMouse(e);
+            this.addRectangle((mouse.x - 20), (mouse.y - 20), 80, 40, 'rgba(0,255,0,.7)');
+            this.valid = false;
+        },
+
   
 
 
