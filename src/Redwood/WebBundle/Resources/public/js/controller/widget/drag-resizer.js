@@ -4,7 +4,8 @@ define(function(require, exports, module) {
     require("../../../css/html-crop.css");
 
     /*rectangle obj */
-    function Box() {
+    function Box(state) {
+        this.state = state;
         this.x = 0;
         this.y = 0;
         this.w = 50; 
@@ -19,7 +20,61 @@ define(function(require, exports, module) {
                 (this.y <= my) && (this.y + this.h >= my);
     };
 
-    
+    Box.prototype.drawBox = function(ctx) {
+        ctx.fillStyle = this.fillColor;
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+console.log(this.state.selection);
+         if (this.state.selection === this) {
+            ctx.strokeStyle = this.state.selectionColor;
+            ctx.lineWidth = this.state.selectionWidth;
+            ctx.strokeRect(this.x,this.y,this.w,this.h);
+
+            // draw the boxes
+            var half = this.state.selectionBoxSize / 2;
+
+            // 0  1  2
+            // 3     4
+            // 5  6  7
+
+            // top left, middle, right
+            this.state.selectionHandles[0].x = this.x-half;
+            this.state.selectionHandles[0].y = this.y-half;
+
+            this.state.selectionHandles[1].x = this.x+this.w/2-half;
+            this.state.selectionHandles[1].y = this.y-half;
+
+            this.state.selectionHandles[2].x = this.x+this.w-half;
+            this.state.selectionHandles[2].y = this.y-half;
+
+            //middle left
+            this.state.selectionHandles[3].x = this.x-half;
+            this.state.selectionHandles[3].y = this.y+this.h/2-half;
+
+            //middle right
+            this.state.selectionHandles[4].x = this.x+this.w-half;
+            this.state.selectionHandles[4].y = this.y+this.h/2-half;
+
+            //bottom left, middle, right
+            this.state.selectionHandles[6].x = this.x+this.w/2-half;
+            this.state.selectionHandles[6].y = this.y+this.h-half;
+
+            this.state.selectionHandles[5].x = this.x-half;
+            this.state.selectionHandles[5].y = this.y+this.h-half;
+
+            this.state.selectionHandles[7].x = this.x+this.w-half;
+            this.state.selectionHandles[7].y = this.y+this.h-half;
+
+
+            ctx.fillStyle = this.state.selectionBoxColor;
+            for (var i = 0; i < 8; i += 1) {
+
+                var cur = this.state.selectionHandles[i];
+                ctx.fillRect(cur.x, cur.y, this.state.selectionBoxSize, this.state.selectionBoxSize);
+            }
+        }
+    };
+
+  
 
     var DragResizer = Widget.extend({
         events: {
@@ -53,6 +108,10 @@ define(function(require, exports, module) {
 
             //八个角上的拖动手柄
             selectionHandles : [],
+            selectionColor: '#CC0000',
+            selectionBoxColor: 'darkred',
+            selectionBoxSize: 6,
+            selectionWidth: 2,
 
 
 
@@ -62,11 +121,22 @@ define(function(require, exports, module) {
 
         setup: function()
         {
+            var i, 
+                selectionHandles = this.get('selectionHandles');
+
+
+            for (i = 0; i < 8; i += 1) {
+                selectionHandles.push(new Box(this));
+            }
+            this.set('selectionHandles', selectionHandles);
+
+
+
             this.initCanvas(this.get('canvasID'));
 
             // add rectangle
-            this.addRectangle(200, 200, 40, 40, '#aaff4e');
-            this.addRectangle(25, 90, 25, 25, '#2BB8FF');
+            this.addRectangle(this, 200, 200, 40, 40, '#aaff4e');
+            // this.addRectangle(25, 90, 25, 25, '#2BB8FF');
 
             //@todo 把时间refresh的操作显示出来
             this.draw();
@@ -74,9 +144,9 @@ define(function(require, exports, module) {
         },
 
         //Initialize a new Box, add it, and invalidate the canvas
-        addRectangle:function (x, y, w, h, fillColor) 
+        addRectangle:function (that, x, y, w, h, fillColor) 
         {
-            var rectangle = new Box;
+            var rectangle = new Box(that);
             rectangle.x = x;
             rectangle.y = y;
             rectangle.w = w
@@ -135,8 +205,10 @@ define(function(require, exports, module) {
                     var l = boxes.length;
                     for (var i = l-1; i >= 0; i--) {
                         //@todo ????why yao clone  ,and why can't see clone
-                        obj.drawshape(obj.get('ctxClone'), boxes[i], 'black');
-                        obj.drawshape(obj.get('ctx'), boxes[i], boxes[i].fill);
+
+                        boxes[i].drawBox(obj.get('ctx')); 
+                        // obj.drawshape(obj.get('ctxClone'), boxes[i], 'black');
+                        // obj.drawshape(obj.get('ctx'), boxes[i], boxes[i].fill);
                     }
                     obj.valid = true;
                 }
@@ -169,9 +241,10 @@ define(function(require, exports, module) {
 
             // run through all the boxes
             var l = boxes.length;
+
             for (var i = l-1; i >= 0; i--) {
                 if (boxes[i].contains(mouseX, mouseY)) {
-                    console.log(boxes[i]);
+                    console.log("000000000000");
 
 
                     selectedBox = boxes[i];
@@ -182,6 +255,7 @@ define(function(require, exports, module) {
 
                     this.set('beDragging', true); 
                     this.set('selection', selectedBox); 
+                    // console.log(this.get('selection'));
 
                     this.valid = false;
 
