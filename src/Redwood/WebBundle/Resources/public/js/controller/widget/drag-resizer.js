@@ -24,10 +24,9 @@ define(function(require, exports, module) {
     Box.prototype.drawBox = function(ctx) {
         ctx.fillStyle = this.fillColor;
         ctx.fillRect(this.x, this.y, this.w, this.h);
-        // console.log(this.state.selection);
-        // if (this.state.selection === this) {
-            console.log("111111");
-            console.log(this.state.selectionColor);
+
+        if (this.state.selection === this) {
+
             ctx.strokeStyle = this.state.selectionColor;
             ctx.lineWidth = this.state.selectionWidth;
             ctx.strokeRect(this.x,this.y,this.w,this.h);
@@ -74,7 +73,7 @@ define(function(require, exports, module) {
                 var cur = this.state.selectionHandles[i];
                 ctx.fillRect(cur.x, cur.y, this.state.selectionBoxSize, this.state.selectionBoxSize);
             }
-        // }
+        }
     };
 
   
@@ -95,6 +94,16 @@ define(function(require, exports, module) {
             canvasID: null,
             canvas:null,
 
+            /**
+             * 真实图片大小 
+             * example trueSize:[width, height]
+             */
+            trueSize: null,
+            originImgWidth: 0,
+            originImgHeight: 0,
+            xscale: 1,
+            yscale: 1,
+
             boxes: [],
 
             _canvasHeight: null,
@@ -106,7 +115,7 @@ define(function(require, exports, module) {
             dragOffsetX: null,
             dragOffsetY: null,
             beDragging: false,
-            selection: null,
+            
 
             beResizeDragging: false,
             //return which selectionHandles when dragging selectionHandles
@@ -115,6 +124,7 @@ define(function(require, exports, module) {
         },
         options:{
             //八个角上的拖动手柄
+            selection: null,
             selectionHandles : [],
             selectionColor: '#CC0000',
             selectionBoxColor: 'darkred',
@@ -132,6 +142,8 @@ define(function(require, exports, module) {
 
 
 
+
+
             for (i = 0; i < 8; i += 1) {
                 selectionHandles.push(new Box(this));
             }
@@ -142,7 +154,7 @@ define(function(require, exports, module) {
             this.initCanvas(this.get('canvasID'));
 
             // add rectangle
-            this.addRectangle(this, 200, 200, 40, 40, 'rgba(0,255,0,.7)');
+            // this.addRectangle(this, 200, 200, 40, 40, 'rgba(0,255,0,.7)');
             // this.addRectangle(25, 90, 25, 25, '#2BB8FF');
 
 
@@ -156,13 +168,13 @@ define(function(require, exports, module) {
         //Initialize a new Box, add it, and invalidate the canvas
         addRectangle:function (that, x, y, w, h, fillColor) 
         {
-            console.log(that);
+
             var rectangle = new Box(that);
             rectangle.x = x;
             rectangle.y = y;
             rectangle.w = w
             rectangle.h = h;
-            rectangle.fill = fillColor;
+            rectangle.fillColor = fillColor;
 
             var boxes = this.get('boxes');
             boxes.push(rectangle);
@@ -180,6 +192,23 @@ define(function(require, exports, module) {
             this.set('_canvasWidth', canvasHtml5.width);
             this.set('ctx', canvasHtml5.getContext('2d'));
 
+            var str = '#'+canvasID;
+            $canvas = $(str);
+            if ($canvas.is('canvas')) {
+                this.set('originImgWidth', $canvas.width());
+                this.set('originImgHeight', $canvas.height());
+       
+            } else{
+                throw new Error('Load canvas Error');
+            };
+
+            /*if options contain trueSize*/
+            var trueSize = this.get('trueSize');
+            if (trueSize) {
+                this.set('xscale', trueSize[0] / this.get('originImgWidth'));
+                this.set('yscale', trueSize[1] / this.get('originImgHeight'));
+            }
+
             this.initCloneCanvas();
 
         },
@@ -191,7 +220,6 @@ define(function(require, exports, module) {
             this.set('ctxClone', canvasClone.getContext('2d'));
         },
         clear: function(ctx) {
-            console.log("clear");
             var w = this.get('_canvasWidth'),
                 h = this.get('_canvasHeight');
 
@@ -221,10 +249,12 @@ define(function(require, exports, module) {
                         // obj.drawshape(obj.get('ctxClone'), boxes[i], 'black');
                         // obj.drawshape(obj.get('ctx'), boxes[i], boxes[i].fill);
                     }
+
+                 
                     obj.valid = true;
                 }
-                // console.log('valid' + obj.valid);
-            }, 1000);
+
+            }, 30);
         },
 
 
@@ -232,6 +262,7 @@ define(function(require, exports, module) {
         {
             clearInterval(myDraw);
         },
+
         getMouse: function(e)
         {
             var mouse = MouseCoords.getMouseOffset('[data-crop-html="img-wrap"]', e);
@@ -245,10 +276,14 @@ define(function(require, exports, module) {
                 mouseX = mouse.x,
                 mouseY = mouse.y;
 
-            var ctxClone = this.get('ctxClone');
-            var boxes = this.get('boxes');
+            if (this.get('expectResize')!== -1) {
+                this.set('beResizeDragging', true);
+                return;
+            }
 
-            this.clear(ctxClone);
+            // var ctxClone = this.get('ctxClone');
+            // this.clear(ctxClone);
+            var boxes = this.get('boxes');
 
             // run through all the boxes
             var l = boxes.length;
@@ -262,8 +297,8 @@ define(function(require, exports, module) {
                     this.set('dragOffsetY', dragOffsetY);
 
                     this.set('beDragging', true); 
-                    this.set('selection', selectedBox); 
-                    // console.log(this.get('selection'));
+                    this.options.selection = selectedBox;
+                    // this.set('selection', selectedBox); 
 
                     this.valid = false;
 
@@ -273,8 +308,9 @@ define(function(require, exports, module) {
             }
             
 
-            if (this.get('selection')) {
-                this.set('selection', null); 
+            if (this.options.selection) {
+                this.options.selection = null;
+                // this.set('selection', null); 
                 this.valid = false; // Need to clear the old selection border
             }
      
@@ -282,81 +318,83 @@ define(function(require, exports, module) {
         },
         myMouseMove: function(e){
 
+            var mouse = this.getMouse(e),
+                mx = mouse.x,
+                my = mouse.y;
+            var currentSelection = this.options.selection;
+
             if (this.get('beDragging')) {
             
-                var mouse = this.getMouse(e);
+                
                 // We don't want to drag the object by its top-left corner, we want to drag it
                 // from where we clicked. Thats why we saved the offset and use it here
-                this.get('selection').x = mouse.x - this.get('dragOffsetX');
-                this.get('selection').y = mouse.y - this.get('dragOffsetY');   
+                currentSelection.x = mx - this.get('dragOffsetX');
+                currentSelection.y = my - this.get('dragOffsetY');   
                 // Something is dragging so we must redraw
                 this.valid = false;
 
                 // return;
             }else if (this.get('beResizeDragging')) {
               // time ro resize!
-              oldx = this.get('selection').x;
-              oldy = this.get('selection').y;
-              console.log('enter!');
+          
+              var oldx = currentSelection.x,
+              oldy = currentSelection.y;
+ 
               // 0  1  2
               // 3     4
               // 5  6  7
-              // switch (myState.expectResize) {
-              //   case 0:
-              //     myState.selection.x = mx;
-              //     myState.selection.y = my;
-              //     myState.selection.w += oldx - mx;
-              //     myState.selection.h += oldy - my;
-              //     break;
-              //   case 1:
-              //     myState.selection.y = my;
-              //     myState.selection.h += oldy - my;
-              //     break;
-              //   case 2:
-              //     myState.selection.y = my;
-              //     myState.selection.w = mx - oldx;
-              //     myState.selection.h += oldy - my;
-              //     break;
-              //   case 3:
-              //     myState.selection.x = mx;
-              //     myState.selection.w += oldx - mx;
-              //     break;
-              //   case 4:
-              //     myState.selection.w = mx - oldx;
-              //     break;
-              //   case 5:
-              //     myState.selection.x = mx;
-              //     myState.selection.w += oldx - mx;
-              //     myState.selection.h = my - oldy;
-              //     break;
-              //   case 6:
-              //     myState.selection.h = my - oldy;
-              //     break;
-              //   case 7:
-              //     myState.selection.w = mx - oldx;
-              //     myState.selection.h = my - oldy;
-              //     break;
-              // }
-              // this.valid = false;
+              switch (this.get('expectResize')) {
+                case 0:
+                  currentSelection.x = mx;
+                  currentSelection.y = my;
+                  currentSelection.w += oldx - mx;
+                  currentSelection.h += oldy - my;
+                  break;
+                case 1:
+                  currentSelection.y = my;
+                  currentSelection.h += oldy - my;
+                  break;
+                case 2:
+                  currentSelection.y = my;
+                  currentSelection.w = mx - oldx;
+                  currentSelection.h += oldy - my;
+                  break;
+                case 3:
+                  currentSelection.x = mx;
+                  currentSelection.w += oldx - mx;
+                  break;
+                case 4:
+                  currentSelection.w = mx - oldx;
+                  break;
+                case 5:
+                  currentSelection.x = mx;
+                  currentSelection.w += oldx - mx;
+                  currentSelection.h = my - oldy;
+                  break;
+                case 6:
+                  currentSelection.h = my - oldy;
+                  break;
+                case 7:
+                  currentSelection.w = mx - oldx;
+                  currentSelection.h = my - oldy;
+                  break;
+              }
+              this.valid = false;
             }
-
-            var mouse2 = this.getMouse(e);
-            var mx = mouse2.x;
-            var my = mouse2.y;
 
             var selectionHandles = this.options.selectionHandles;
             var selectionBoxSize = this.options.selectionBoxSize;
             var that = e.currentTarget;
 
             // if there's a selection see if we grabbed one of the selection handles
-            if (this.get('selection') !== null && !this.get('beResizeDragging')) {
+            if (currentSelection !== null && !this.get('beResizeDragging')) {
          
                 for (var i = 0; i < 8; i += 1) {
                     // 0  1  2
                     // 3     4
                     // 5  6  7
                     cur = selectionHandles[i];
-
+              
 
 
                     // we dont need to use the ghost context because
@@ -369,7 +407,6 @@ define(function(require, exports, module) {
 
                         this.valid = false;
               
-
                         switch (i) {
                           case 0:
                             that.style.cursor='nw-resize';
@@ -403,8 +440,7 @@ define(function(require, exports, module) {
                 // not over a selection box, return to normal
                 this.set('beResizeDragging', false);
                 this.set('expectResize', -1);
-
-                // this.style.cursor = 'auto';
+                that.style.cursor = 'auto';
             }
 
 
@@ -419,7 +455,56 @@ define(function(require, exports, module) {
         myMouseUp: function(e)
         {
             this.set('beDragging', false);
+            this.set('beResizeDragging', false);
+            this.set('expectResize', -1);
+
+            var currentSelection = this.options.selection;
+
+            if (currentSelection !== null) {
+              if (currentSelection.w < 0) {
+                  currentSelection.w = -currentSelection.w;
+                  currentSelection.x -= currentSelection.w;
+              }
+              if (currentSelection.h < 0) {
+                  currentSelection.h = -currentSelection.h;
+                  currentSelection.y -= currentSelection.h;
+              }
+            }
+
+            var boxesPos = this.getBoxsPos(this.get('boxes'));
+            this.trigger('getBoxs', boxesPos);
+
         },
+        getBoxsPos: function(boxes)
+        {
+            var boxesPos = {},
+                yscale = this.get('yscale'),
+                l = boxes.length;
+            for (var i =0; i < l; i++) {
+                //@todo ????why yao clone  ,and why can't see clone
+
+      // Math.round(top * yscale)
+                boxesPos[i] = {
+                    'x' : Math.round((boxes[i].x)*yscale),
+                    'y' : Math.round((boxes[i].y)*yscale),
+                    'w' : Math.round((boxes[i].w)*yscale),
+                    'h' : Math.round((boxes[i].h)*yscale),
+
+                };
+            }
+
+            return boxesPos;
+
+
+
+        },
+
+
+
+
+
+
+
         myDbclick: function(e)
         {
             var mouse = this.getMouse(e);

@@ -10,6 +10,7 @@ define(function(require, exports, module) {
     	var naturalWidth = $picture.data('naturalWidth'),
             naturalHeight = $picture.data('naturalHeight'),
             lines = Array();
+   
 
 
         var demo = new HtmlCropper({ 
@@ -19,17 +20,6 @@ define(function(require, exports, module) {
                 setCutOffLine: true,
             }).render();
 
-
-// --------------------------------------------------------
-        var dragDiv = new DragResizer({ 
-                element: '#demo', 
-                canvasID: 'canvas',
-              
-            }).render();
-
-
-
-// ------------------------------------------------------
         //@todo 在初始化的时候一步实现
         var lines = demo.getLinePos();
         // 当 横线移动时
@@ -37,11 +27,29 @@ define(function(require, exports, module) {
             lines = data ? data : lines;
         });
 
+        var boxs = Array();
+        // @todo 当框框移动到边缘 返回的坐标有问题 没有边界
+        var dragDiv = new DragResizer({ 
+                element: '#demo', 
+                canvasID: 'canvas',
+                trueSize: [naturalWidth, naturalHeight],
+              
+            }).render();
+
+        dragDiv.on('getBoxs', function(data){
+            boxs = data ? data : '';
+        });
+
+
 
         $cropBox.on('click', 'button', function() {
-            console.log($(this).data('url'));
-            console.log(lines);
-            $.post($(this).data('url'), {'lines':lines}, function(results){
+
+            var data = {
+                'lines': lines,
+                'boxs' : boxs,
+            };
+
+            $.post($(this).data('url'), {'postData':data}, function(results){
                 console.log('13');
             });
 

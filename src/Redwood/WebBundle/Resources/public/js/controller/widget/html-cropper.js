@@ -58,6 +58,8 @@ define(function(require, exports, module) {
                 this.set('yscale', trueSize[1] / this.get('originImgHeight'));
             }
 
+
+
             /*if options contain setCutoffLine*/
             if (this.get('setCutOffLine') != false) {
                 this.setCutOffLine(this.get('originImgHeight'), this.get('perImageHeight'));
