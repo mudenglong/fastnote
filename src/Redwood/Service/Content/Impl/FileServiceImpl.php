@@ -110,5 +110,106 @@ class FileServiceImpl extends BaseService implements FileService
         return $newImage;
     }
 
+    public function uploadHtmlPic($filePath, array $options)
+    {
+        $pageRecord = $this->cropPage($filePath, $options);
+        var_dump("END uploadHtmlPic");
+    }
+
+    private function getDivHeihtByLines($lines)
+    {
+        var_dump("121212");
+    }
+
+    private function cropPage($filePath, $options)
+    {
+        $postData = $options['postData'];
+        $lines    = $postData['lines'];
+        if (array_key_exists("boxs",$postData)) 
+        { 
+            $boxs = $postData['boxs'] ;
+        }
+
+        $imagine = new Imagine();
+        $basicImage = $imagine->open($filePath)->copy();
+        $naturalSize = $basicImage->getSize();
+
+        $this->getDivHeihtByLines($lines);
+
+        // $basicImage->crop(new Point($options['x'], $options['y']), new Box($options['width'], $options['height']));
+
+        $pathinfo = pathinfo($filePath);
+        // var_dump($naturalSize);
+
+
+
+        // $largeImageTarget = array(
+        //         'width' => 200,
+        //         'height' => 200,
+        //         'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_large.{$pathinfo['extension']}",
+        // );
+
+        // $mediumImageTarget = array(
+        //         'width' => 120,
+        //         'height' => 120,
+        //         'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_medium.{$pathinfo['extension']}",
+        // );
+
+        // $smallImageTarget = array(
+        //         'width' => 48,
+        //         'height' => 48,
+        //         'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_small.{$pathinfo['extension']}",
+        // );
+
+        // $tempLargeImage = $this->newTempAvatar($basicImage, $largeImageTarget);
+        // $largeImageInfo = $this->generateUri($tempLargeImage);
+        // $largeAvatar = $this->saveAvatarFile($largeImageInfo, $tempLargeImage);
+
+        // $tempMediumImage = $this->newTempAvatar($basicImage, $mediumImageTarget);
+        // $mediumImageInfo = $this->generateUri($tempMediumImage);
+        // $mediumAvatar = $this->saveAvatarFile($mediumImageInfo, $tempMediumImage);
+
+        // $tempSmallImage = $this->newTempAvatar($basicImage, $smallImageTarget);
+        // $smallImageInfo = $this->generateUri($tempSmallImage);
+        // $smallAvatar = $this->saveAvatarFile($smallImageInfo, $tempSmallImage);
+
+
+    }
+
+
+    private function change1111111Avatar($userId, $filePath, array $options)
+    {
+        $user = $this->getUser($userId);
+        if (empty($user)) {
+            throw $this->createServiceException('用户不存在，头像更新失败！');
+        }
+
+        $avatarRecord    = $this->getFileService()->uploadAvatar($filePath, $options);
+        $smallAvatarUri  = $avatarRecord['smallImageInfo']['directory'].$avatarRecord['smallImageInfo']['filename'];
+        $mediumAvatarUri = $avatarRecord['mediumImageInfo']['directory'].$avatarRecord['mediumImageInfo']['filename'];
+        $largeAvatarUri  = $avatarRecord['largeImageInfo']['directory'].$avatarRecord['largeImageInfo']['filename'];
+        
+        @unlink($filePath);
+
+        $oldAvatars = array(
+            'smallAvatar' => $user['smallAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['smallAvatar']) : null,
+            'mediumAvatar' => $user['mediumAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['mediumAvatar']) : null,
+            'largeAvatar' => $user['largeAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['largeAvatar']) : null,
+        );
+
+        array_map(function($oldAvatar){
+            if (!empty($oldAvatar)) {
+                @unlink($oldAvatar);
+            }
+        }, $oldAvatars);
+
+        return  $this->getUserDao()->updateUser($userId, array(
+            'smallAvatar'  => $smallAvatarUri,
+            'mediumAvatar' => $mediumAvatarUri,
+            'largeAvatar'  => $largeAvatarUri,
+        ));
+
+    }
+
 
 }

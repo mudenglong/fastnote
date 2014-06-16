@@ -9,4 +9,6 @@ interface FileService
 
     public function sqlUriConvertAbsolutUri($sqlUri);
 
+    public function uploadHtmlPic($filePath, array $options);
+
 }

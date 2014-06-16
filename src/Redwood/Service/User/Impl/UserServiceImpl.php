@@ -297,9 +297,9 @@ class UserServiceImpl extends BaseService implements UserService
         }, $oldAvatars);
 
         return  $this->getUserDao()->updateUser($userId, array(
-            'smallAvatar' => $smallAvatarUri,
+            'smallAvatar'  => $smallAvatarUri,
             'mediumAvatar' => $mediumAvatarUri,
-            'largeAvatar' =>  $largeAvatarUri,
+            'largeAvatar'  => $largeAvatarUri,
         ));
 
     }

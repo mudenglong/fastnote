@@ -49,17 +49,13 @@ define(function(require, exports, module) {
                 'boxs' : boxs,
             };
 
-            $.post($(this).data('url'), {'postData':data}, function(results){
+            var url = window.location.href;
+
+            $.post(url, {'postData':data}, function(results){
                 console.log('13');
             });
 
         });
-
-
-        // $form.find('[name=x]').val(c.x);
-        // $form.find('[name=y]').val(c.y);
-        // $form.find('[name=width]').val(c.w);
-        // $form.find('[name=height]').val(c.h);
 
 
     };

@@ -53,11 +53,10 @@ class WeckerController extends BaseController
 
         if($request->getMethod()=='POST')
         {
-            var_dump("wooh!");
          
             $options = $request->request->all();
-            var_dump($options);
-            // return false;
+            $this->getFileService()->uploadHtmlPic($pictureFilePath, $options);
+
             return $this->createJsonResponse(array('status' => 'ok', 'html' => 'okkkk'));
    
         }

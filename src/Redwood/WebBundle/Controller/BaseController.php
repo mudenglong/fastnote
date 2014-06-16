@@ -81,6 +81,11 @@ abstract class BaseController extends Controller
         return $this->getServiceKernel()->createService('User.UserService');
     }
 
+    protected function getFileService()
+    {
+        return $this->getServiceKernel()->createService('Content.FileService');        
+    }
+
     protected function getLogService()
     {
         return $this->getServiceKernel()->createService('System.LogService');
