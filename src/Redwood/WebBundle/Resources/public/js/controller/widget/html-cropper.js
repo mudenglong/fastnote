@@ -168,15 +168,21 @@ define(function(require, exports, module) {
 
             $('[data-crop-html^=wrap]').each(function( index ) {
                 var topArr = $(this).css('top').split("px"),
-                    top = topArr[0];
+                    top = topArr[0],
+                    index = index+1;
 
-                if(yscale != 1)
-                {
-                    lines[index] = {
-                        'naturalTop' : Math.round(top * yscale),
-                        'top' : parseInt(top),
-                    };
-                }
+                lines[0] = {
+                    'naturalTop' : 0,
+                    'top' : 0,
+                };
+                
+                // if(yscale != 1)
+                // {
+                lines[index] = {
+                    'naturalTop' : Math.round(top * yscale),
+                    'top' : parseInt(top),
+                };
+                // }
             });
 
             return lines;

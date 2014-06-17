@@ -116,9 +116,22 @@ class FileServiceImpl extends BaseService implements FileService
         var_dump("END uploadHtmlPic");
     }
 
-    private function getDivHeihtByLines($lines)
+    private function getDivHeihtByLines($lines, $totalHeight)
     {
-        var_dump("121212");
+        foreach ($lines as $key => $value) {
+            $nextKey = $key+1;
+            
+            if(isset($lines[$nextKey]))
+            {
+                 $lines[$key]['height']  = $lines[$nextKey]['naturalTop'] - $lines[$key]['naturalTop'] ;
+            }else{
+                $lines[$key]['height'] = $totalHeight - $lines[$key]['naturalTop'];
+            }
+
+        }
+
+        return $lines;
+
     }
 
     private function cropPage($filePath, $options)
@@ -131,15 +144,26 @@ class FileServiceImpl extends BaseService implements FileService
         }
 
         $imagine = new Imagine();
-        $basicImage = $imagine->open($filePath)->copy();
-        $naturalSize = $basicImage->getSize();
-
-        $this->getDivHeihtByLines($lines);
-
-        // $basicImage->crop(new Point($options['x'], $options['y']), new Box($options['width'], $options['height']));
-
         $pathinfo = pathinfo($filePath);
-        // var_dump($naturalSize);
+        $naturalSize = $imagine->open($filePath)->getSize();
+        $basicImage = $imagine->open($filePath)->copy();
+
+
+        $lines = $this->getDivHeihtByLines($lines, $naturalSize->getHeight());
+
+        // $basicImage->crop(new Point(0, (int)$lines[0]['naturalTop']), new Box($naturalSize->getWidth(), $lines[0]['height']));
+        // $tmp = "{$pathinfo['dirname']}/{$pathinfo['filename']}_small.{$pathinfo['extension']}";
+        // $basicImage->save($tmp, array('quality' => 70));
+
+        // $basicImage2 = $imagine->open($filePath)->copy();
+
+        // $basicImage2->crop(new Point(0, (int)$lines[1]['naturalTop']), new Box($naturalSize->getWidth(), $lines[1]['height']));
+        // $tmp2 = "{$pathinfo['dirname']}/{$pathinfo['filename']}_small222.{$pathinfo['extension']}";
+        // $basicImage2->save($tmp2, array('quality' => 70));
+
+
+        var_dump($naturalSize);
+        // var_dump($tmp);
 
 
 
@@ -149,29 +173,14 @@ class FileServiceImpl extends BaseService implements FileService
         //         'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_large.{$pathinfo['extension']}",
         // );
 
-        // $mediumImageTarget = array(
-        //         'width' => 120,
-        //         'height' => 120,
-        //         'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_medium.{$pathinfo['extension']}",
-        // );
+        // $image->resize(new Box($imageTarget['width'], $imageTarget['height']));
+        // $image->save($imageTarget['filePath'], array('quality' => 90));
 
-        // $smallImageTarget = array(
-        //         'width' => 48,
-        //         'height' => 48,
-        //         'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_small.{$pathinfo['extension']}",
-        // );
+        // return new File($imageTarget['filePath']);
 
         // $tempLargeImage = $this->newTempAvatar($basicImage, $largeImageTarget);
         // $largeImageInfo = $this->generateUri($tempLargeImage);
         // $largeAvatar = $this->saveAvatarFile($largeImageInfo, $tempLargeImage);
-
-        // $tempMediumImage = $this->newTempAvatar($basicImage, $mediumImageTarget);
-        // $mediumImageInfo = $this->generateUri($tempMediumImage);
-        // $mediumAvatar = $this->saveAvatarFile($mediumImageInfo, $tempMediumImage);
-
-        // $tempSmallImage = $this->newTempAvatar($basicImage, $smallImageTarget);
-        // $smallImageInfo = $this->generateUri($tempSmallImage);
-        // $smallAvatar = $this->saveAvatarFile($smallImageInfo, $tempSmallImage);
 
 
     }
