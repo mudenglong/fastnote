@@ -47,6 +47,8 @@ define(function(require, exports, module) {
             var data = {
                 'lines': lines,
                 'boxs' : boxs,
+                'imageNaturalWidth' : naturalWidth,
+                'imageNaturalHeight' : naturalHeight,
             };
 
             var url = window.location.href;

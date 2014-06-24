@@ -54,8 +54,37 @@ class WeckerController extends BaseController
         if($request->getMethod()=='POST')
         {
          
-            $options = $request->request->all();
-            $this->getFileService()->uploadHtmlPic($pictureFilePath, $options);
+            $options  = $request->request->all();
+            $postData = $options['postData'];
+            $lines    = $postData['lines'];
+            $naturalWidth = $postData['imageNaturalWidth'];
+            $naturalHeight = $postData['imageNaturalHeight'];
+
+            if (array_key_exists("boxs",$postData)) 
+            { 
+                $boxs = $postData['boxs'] ;
+                foreach ($boxs as &$box) {
+                    $box['marginLeft'] = -(round((int)$naturalWidth/2)-((int)$box['x']));
+                }
+            }
+            $imagesRecords = $this->getFileService()->uploadHtmlPic($pictureFilePath, $options);
+            // $imagesRecords = array(
+            //                     'imagesInfos' => array('img0.jpg','img1.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg','img6.jpg'),
+            //                     'secret' => '2014/06-24/1a36cd185697',
+            //                 );
+
+            $divCoors = $this->getFileService()->getCropDivCoordsByLines($lines, $naturalHeight);
+            foreach ($divCoors as $key => $value) {
+                foreach ($imagesRecords['imagesInfos'] as $imagesRecord) {
+                    $divCoors[$key]['filename'] = $imagesRecords['imagesInfos'][$key];
+                }
+            }
+
+            $html = $this->renderView('RedwoodWebBundle:Wecker:pageView.html.twig', array(
+                'imagesInfos' => $divCoors,
+                'boxs' => $boxs,
+            ));
+            var_dump($html);
 
             return $this->createJsonResponse(array('status' => 'ok', 'html' => 'okkkk'));
    

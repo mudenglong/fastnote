@@ -110,13 +110,73 @@ class FileServiceImpl extends BaseService implements FileService
         return $newImage;
     }
 
-    public function uploadHtmlPic($filePath, array $options)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    private function generatePageUri(File $file, $secret)
     {
-        $pageRecord = $this->cropPage($filePath, $options);
-        var_dump("END uploadHtmlPic");
+
+        if ($file instanceof UploadedFile) {
+            $filename = $file->getClientOriginalName();
+        } else {
+            $filename = $file->getFilename();
+        }
+
+        $filenameParts = explode('_', $filename);
+        $trueFilename = array_pop($filenameParts);
+
+        if (empty($trueFilename)) {
+            throw $this->createServiceException('获取文件名失败！');
+        }
+
+        $newImage["directory"] = 'public://cropHtml/'. date('Y') . '/' . date('m-d') . '/' . $secret . '/images/';
+        $newImage["filename"] = $trueFilename;
+        
+        return $newImage;
     }
 
-    private function getDivHeihtByLines($lines, $totalHeight)
+    public function uploadHtmlPic($filePath, array $options)
+    {
+        $pageRecords = $this->cropPage($filePath, $options);
+        $newImages = $this->savePageImg($pageRecords);
+
+        @unlink($filePath);
+        
+        return $newImages;
+    }
+
+
+    private function savePageImg($pageRecords)
+    {
+        $newImages = array();
+        $imagesInfos = array();
+        $secret = substr(uniqid(), - 6) . substr(uniqid('', true), - 6);
+
+        foreach ($pageRecords as $key => $pageRecord) {
+            $newImageInfo = $this->generatePageUri($pageRecord, $secret);
+            $imagesInfos[] = $newImageInfo['filename'];
+            $newImages[] = $this->saveAvatarFile($newImageInfo, $pageRecord);
+        }
+        return array(
+            // 'newImages' => $newImages,
+            'imagesInfos' => $imagesInfos,
+            'secret' => date('Y') . '/' . date('m-d') . '/' . $secret ,
+        );
+    }
+
+    public function getCropDivCoordsByLines($lines, $totalHeight)
     {
         foreach ($lines as $key => $value) {
             $nextKey = $key+1;
@@ -143,80 +203,22 @@ class FileServiceImpl extends BaseService implements FileService
             $boxs = $postData['boxs'] ;
         }
 
+        $newImage = array();
         $imagine = new Imagine();
         $pathinfo = pathinfo($filePath);
         $naturalSize = $imagine->open($filePath)->getSize();
-        $basicImage = $imagine->open($filePath)->copy();
 
+        $lines = $this->getCropDivCoordsByLines($lines, $naturalSize->getHeight());
 
-        $lines = $this->getDivHeihtByLines($lines, $naturalSize->getHeight());
-
-        // $basicImage->crop(new Point(0, (int)$lines[0]['naturalTop']), new Box($naturalSize->getWidth(), $lines[0]['height']));
-        // $tmp = "{$pathinfo['dirname']}/{$pathinfo['filename']}_small.{$pathinfo['extension']}";
-        // $basicImage->save($tmp, array('quality' => 70));
-
-        // $basicImage2 = $imagine->open($filePath)->copy();
-
-        // $basicImage2->crop(new Point(0, (int)$lines[1]['naturalTop']), new Box($naturalSize->getWidth(), $lines[1]['height']));
-        // $tmp2 = "{$pathinfo['dirname']}/{$pathinfo['filename']}_small222.{$pathinfo['extension']}";
-        // $basicImage2->save($tmp2, array('quality' => 70));
-
-
-        var_dump($naturalSize);
-        // var_dump($tmp);
-
-
-
-        // $largeImageTarget = array(
-        //         'width' => 200,
-        //         'height' => 200,
-        //         'filePath' => "{$pathinfo['dirname']}/{$pathinfo['filename']}_large.{$pathinfo['extension']}",
-        // );
-
-        // $image->resize(new Box($imageTarget['width'], $imageTarget['height']));
-        // $image->save($imageTarget['filePath'], array('quality' => 90));
-
-        // return new File($imageTarget['filePath']);
-
-        // $tempLargeImage = $this->newTempAvatar($basicImage, $largeImageTarget);
-        // $largeImageInfo = $this->generateUri($tempLargeImage);
-        // $largeAvatar = $this->saveAvatarFile($largeImageInfo, $tempLargeImage);
-
-
-    }
-
-
-    private function change1111111Avatar($userId, $filePath, array $options)
-    {
-        $user = $this->getUser($userId);
-        if (empty($user)) {
-            throw $this->createServiceException('用户不存在，头像更新失败！');
+        foreach ($lines as $key => $value) {
+            $basicImage = $imagine->open($filePath)->copy();
+            $basicImage->crop(new Point(0, (int)$lines[$key]['naturalTop']), new Box($naturalSize->getWidth(), $lines[$key]['height']));
+            $tmp = "{$pathinfo['dirname']}/{$pathinfo['filename']}_img{$key}.{$pathinfo['extension']}";
+            $basicImage->save($tmp, array('quality' => 70));
+            $newImage[] = new File($tmp);
+            $basicImage = '';
         }
-
-        $avatarRecord    = $this->getFileService()->uploadAvatar($filePath, $options);
-        $smallAvatarUri  = $avatarRecord['smallImageInfo']['directory'].$avatarRecord['smallImageInfo']['filename'];
-        $mediumAvatarUri = $avatarRecord['mediumImageInfo']['directory'].$avatarRecord['mediumImageInfo']['filename'];
-        $largeAvatarUri  = $avatarRecord['largeImageInfo']['directory'].$avatarRecord['largeImageInfo']['filename'];
-        
-        @unlink($filePath);
-
-        $oldAvatars = array(
-            'smallAvatar' => $user['smallAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['smallAvatar']) : null,
-            'mediumAvatar' => $user['mediumAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['mediumAvatar']) : null,
-            'largeAvatar' => $user['largeAvatar'] ? $this->getFileService()->sqlUriConvertAbsolutUri($user['largeAvatar']) : null,
-        );
-
-        array_map(function($oldAvatar){
-            if (!empty($oldAvatar)) {
-                @unlink($oldAvatar);
-            }
-        }, $oldAvatars);
-
-        return  $this->getUserDao()->updateUser($userId, array(
-            'smallAvatar'  => $smallAvatarUri,
-            'mediumAvatar' => $mediumAvatarUri,
-            'largeAvatar'  => $largeAvatarUri,
-        ));
+        return $newImage;
 
     }
 
