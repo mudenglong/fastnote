@@ -17,7 +17,7 @@ define(function(require, exports, module) {
              */
             trueSize: null,
             setCutOffLine: false,
-            perImageHeight: 250,
+            perImageHeight: 200,
 
 
             /*do not change under value*/

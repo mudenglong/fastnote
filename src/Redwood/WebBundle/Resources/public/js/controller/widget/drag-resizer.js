@@ -499,12 +499,6 @@ define(function(require, exports, module) {
 
         },
 
-
-
-
-
-
-
         myDbclick: function(e)
         {
             var mouse = this.getMouse(e);
@@ -512,15 +506,6 @@ define(function(require, exports, module) {
             this.valid = false;
         },
 
-  
-
-
-
-
-     
-
-   
-    
 
     });
 

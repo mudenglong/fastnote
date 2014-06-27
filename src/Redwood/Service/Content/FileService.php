@@ -15,5 +15,11 @@ interface FileService
     * 工具函数，根据分割线，获得要分割div的坐标及宽度高度
     */
     public function getCropDivCoordsByLines($lines, $totalHeight);
+    
+    public function writeFile($includePathFilename, $content);
+    
+    public function zipFolder($includePathFilename);
+
+
 
 }

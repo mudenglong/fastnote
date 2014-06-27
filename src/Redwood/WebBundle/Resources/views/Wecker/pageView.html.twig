@@ -43,7 +43,7 @@ table{border-collapse:collapse;border-spacing:0;}
 </head> 
 <body>
     {% for box in boxs %}
-    <a href="http://www.baidu.com" class="a{{ loop.index }}" target="_blank">111</a>
+    <a href="http://www.baidu.com" class="a{{ loop.index }}" target="_blank">a{{ loop.index }}</a>
     {% else %}
         <!-- No A Link! -->
     {% endfor %}

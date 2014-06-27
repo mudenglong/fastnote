@@ -5,6 +5,8 @@ use Redwood\Service\Common\BaseService;
 use Redwood\Service\Content\FileService;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 use Imagine\Imagick\Imagine;
 use Imagine\Image\Box;
@@ -14,6 +16,7 @@ use Redwood\Common\FileToolkit;
 
 class FileServiceImpl extends BaseService implements FileService
 {
+    private $zip;
 
     private function newTempAvatar($image, $imageTarget)
     {
@@ -214,7 +217,7 @@ class FileServiceImpl extends BaseService implements FileService
             $basicImage = $imagine->open($filePath)->copy();
             $basicImage->crop(new Point(0, (int)$lines[$key]['naturalTop']), new Box($naturalSize->getWidth(), $lines[$key]['height']));
             $tmp = "{$pathinfo['dirname']}/{$pathinfo['filename']}_img{$key}.{$pathinfo['extension']}";
-            $basicImage->save($tmp, array('quality' => 70));
+            $basicImage->save($tmp, array('quality' => 85));
             $newImage[] = new File($tmp);
             $basicImage = '';
         }
@@ -222,5 +225,44 @@ class FileServiceImpl extends BaseService implements FileService
 
     }
 
+    /*
+    * 写文件
+    */
+    public function writeFile($includePathFilename, $content)
+    {
+        var_dump($content);
+        $path = $this->sqlUriConvertAbsolutUri($includePathFilename);
+        // var_dump($path);
+        $filesystem = new Filesystem();
+        return $filesystem->dumpFile($path, $content);
 
+    }
+
+    public function zipFolder($includePathFilename)
+    {
+        $path = '/var/www/fastnote/app/cache/dev/../../../web/files/cropHtml/2014/06-25/64ac41036307/';
+        $zip_file = '';
+
+        $this->zip = new \ZipArchive();
+        $canOpen = $this->zip->open($path . '64ac41036307.zip', \ZipArchive::CREATE);
+        if ($canOpen) {
+            $this->getFilesFromFolder($path, $zip_file, $this->zip);
+            $this->zip->close();
+        }
+    }
+
+    private function getFilesFromFolder($directory, $destination, $zip) 
+    {
+        if ($handle = opendir($directory)) {
+            while (false !== ($file = readdir($handle))) {
+                if (is_file($directory.$file)) {
+                    $zip->addFile($directory.$file, $destination.$file);
+                } elseif ($file != '.' and $file != '..' and is_dir($directory.$file)) {
+                    $zip->addEmptyDir($destination.$file);
+                    $this->getFilesFromFolder($directory.$file.'/', $destination.$file.'/', $zip);
+                }
+            }
+        }
+        closedir($handle);
+    }
 }
