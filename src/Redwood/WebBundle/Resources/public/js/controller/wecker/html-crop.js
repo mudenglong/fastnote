@@ -42,7 +42,8 @@ define(function(require, exports, module) {
 
 
 
-        $cropBox.on('click', 'button', function() {
+        $('body').on('click', '[data-role=cropBtn]', function() {
+            beforeGetResult();
 
             var data = {
                 'lines': lines,
@@ -54,13 +55,28 @@ define(function(require, exports, module) {
             var url = window.location.href;
 
             $.post(url, {'postData':data}, function(results){
-                console.log('13');
+                if(results.status == 'success')
+                {
+                    console.log(results.secret);
+                    // $('#demo').remove();
+                    // $('.cr-box').remove();
+                   
+                   
+                }
             });
 
         });
 
 
     };
+
+    function beforeGetResult () {
+        console.log('121212');
+        $('#demo').css('display','none');
+        $('.cr-tip').css('display','none');
+        $('.cr-settings').css('display','none');
+        $('.waiting-box').css('display','block');
+    }
 
 });
 

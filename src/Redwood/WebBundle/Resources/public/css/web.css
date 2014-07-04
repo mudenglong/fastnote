@@ -402,3 +402,89 @@ input,textarea,select,h1,h2,h3,h4,h5,h6 {
 
 }
 /* end under construction*/
+
+
+
+/*crop html*/
+.pre-crop-box{
+  margin: 80px 0;
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+}
+.pre-crop-box h1 {
+  font-size: 100px;
+  line-height: 1;
+  margin: 10px 0;
+}
+.pre-crop-form{
+width: 323px;
+margin: 0 auto;
+height: 133px;
+background: #eee;
+padding: 30px 78px;
+}
+.crop-get-form{
+  width: 408px;
+margin: 0 auto;
+height: 96px;
+background: #eee;
+padding: 30px 20px;
+}
+.pre-crop-upload{
+  margin: 0 0 15px 0;
+}
+.cr-box hr{
+  margin: 10px 0 10px;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #ffffff;
+}
+.cr-box{
+  width: 1000px;
+  margin: 0 auto;
+}
+.cr-box .muted {
+color: #999999;
+font-size: 24px;
+margin: 10px 0;
+}
+.cr-tip{
+  background: #ffde96;
+  padding: 10px;
+  margin: 10px 20px;
+  border-radius: 4px;
+  color: #000;
+}
+.waiting-box{
+  text-align: center;
+  margin: 70px 20px;
+  padding: 10px;
+}
+.cr-settings{
+  padding: 10px;
+  margin: 10px 20px;
+}
+.cr-tip span{
+  font-size: 18px;
+  color: #6d6d6d;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.crop-waiting-icon{
+  background: url("../img/crop-loading.gif") 0 -30px no-repeat;
+  width: 800px;
+  height: 47px;
+  display: block;
+  margin: 0 auto;
+  text-indent: -999em;
+}
+.crop-waiting-p{
+  color: #ccc;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: bold;
+}
+/*end crop html*/

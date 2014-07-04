@@ -42,6 +42,7 @@ class WeckerController extends BaseController
             'form' => $form->createView(),
         ));
     }
+
     public function htmlCropAction(Request $request)
     {
 
@@ -70,10 +71,11 @@ class WeckerController extends BaseController
             }
 
             // $imagesRecords = $this->getFileService()->uploadHtmlPic($pictureFilePath, $options);
-            // // $imagesRecords = array(
-            // //                     'imagesInfos' => array('img0.jpg','img1.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg','img6.jpg'),
-            // //                     'secret' => '2014/06-24/1a36cd185697',
-            // //                 );
+            // test data
+            $imagesRecords = array(
+                                'imagesInfos' => array('img0.jpg','img1.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg','img6.jpg'),
+                                'secret' => '2014/06-24/1a36cd185697',
+                            );
 
             // $divCoors = $this->getFileService()->getCropDivCoordsByLines($lines, $naturalHeight);
             // foreach ($divCoors as $key => $value) {
@@ -86,14 +88,14 @@ class WeckerController extends BaseController
             //     'imagesInfos' => $divCoors,
             //     'boxs' => $boxs ? $boxs:'',
             // ));
-            $includePathFilename = 'public://cropHtml/2014/06-25/64ac41036307/index.html';
-            $html = 'abcabc';
-            $this->getFileService()->writeFile($includePathFilename, $html);
-            $this->getFileService()->zipFolder($includePathFilename);
+            // $cropDirPath = 'public://cropHtml/'. $imagesRecords['secret'];
+            // $this->getFileService()->writeFile($cropDirPath, $html);
+            // $this->getFileService()->zipFolder($cropDirPath);
 
-            // var_dump($html);
-
-            return $this->createJsonResponse(array('status' => 'ok', 'html' => 'okkkk'));
+            return $this->createJsonResponse(array(
+                'status' => 'success', 
+                'secret' => base64_encode($imagesRecords['secret']),
+            ));
    
         }
 
@@ -114,6 +116,24 @@ class WeckerController extends BaseController
             'naturalSize' => $naturalSize,
             'scaledSize' => $scaledSize,
         ));
+    }
+
+
+    public function zipGetAction(Request $request)
+    {
+        if($request->getMethod()=='POST')
+        {
+         
+            $options  = $request->request->all();
+            var_dump($options);
+           
+
+            return $this->createJsonResponse(array(
+                'status' => 'success', 
+            ));
+   
+        }
+
     }
 
 }

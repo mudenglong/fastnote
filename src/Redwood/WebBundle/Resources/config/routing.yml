@@ -60,3 +60,6 @@ wecker_html_build:
 wecker_html_crop:
     pattern: /html/build/crop
     defaults: { _controller:RedwoodWebBundle:Wecker:htmlCrop }
+wecker_zip_get:
+    pattern: /html/build/get
+    defaults: { _controller:RedwoodWebBundle:Wecker:zipGet }

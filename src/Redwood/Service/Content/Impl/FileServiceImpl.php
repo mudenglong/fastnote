@@ -228,27 +228,31 @@ class FileServiceImpl extends BaseService implements FileService
     /*
     * 写文件
     */
-    public function writeFile($includePathFilename, $content)
+    public function writeFile($cropDirPath, $content)
     {
-        var_dump($content);
+        $includePathFilename = $cropDirPath .'/index.html';
         $path = $this->sqlUriConvertAbsolutUri($includePathFilename);
-        // var_dump($path);
+       
         $filesystem = new Filesystem();
         return $filesystem->dumpFile($path, $content);
 
     }
 
-    public function zipFolder($includePathFilename)
+    public function zipFolder($cropDirPath)
     {
-        $path = '/var/www/fastnote/app/cache/dev/../../../web/files/cropHtml/2014/06-25/64ac41036307/';
+        $path = $cropDirPath.'/';
+        $path = $this->sqlUriConvertAbsolutUri($path);
         $zip_file = '';
+        $pathParts = explode('/', $cropDirPath);
+        $zipName = array_pop($pathParts).'.zip';
 
         $this->zip = new \ZipArchive();
-        $canOpen = $this->zip->open($path . '64ac41036307.zip', \ZipArchive::CREATE);
+        $canOpen = $this->zip->open($path . $zipName, \ZipArchive::CREATE);
         if ($canOpen) {
             $this->getFilesFromFolder($path, $zip_file, $this->zip);
             $this->zip->close();
         }
+
     }
 
     private function getFilesFromFolder($directory, $destination, $zip) 
