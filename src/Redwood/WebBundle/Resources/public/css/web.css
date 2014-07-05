@@ -487,4 +487,51 @@ margin: 10px 0;
   line-height: 26px;
   font-weight: bold;
 }
+.cr-ok-box{
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 65px;
+  border: 1px solid #e8e8e8;
+  -webkit-box-shadow: 0 3px 20px rgba(50,50,50,.3);
+  -moz-box-shadow: 0 3px 20px rgba(50,50,50,.3);
+  box-shadow: 0 3px 20px rgba(50,50,50,.3);
+  width: 1000px;
+  margin: 40px auto;
+  position: relative;
+}
+.cr-ok-img1{
+  background: url(../img/crop-ok-bg1.jpg) 0 0 no-repeat;
+  width: 960px;
+  height: 324px;
+}
+.cr-ok-img2{
+  background: url(../img/crop-ok-bg2.jpg) 0 0 no-repeat;
+  width: 960px;
+  height: 276px;
+}
+.cr-ok-con .w200{
+  width: 554px;
+font-size: 26px;
+height: 56px;
+}
+.cr-ok-con h3{
+  font-size: 24px;
+font-weight: bold;
+line-height: 100px;
+}
+.cr-ok-con{
+  position: absolute;
+  top: 166px;
+  left: 181px;
+  width: 642px;
+  height: 300px;
+  background: #fff;
+  opacity: 0.8;
+  box-shadow: 0 3px 20px rgba(50,50,50,.8);
+  text-align: center;
+  padding: 28px 50px;
+}
+.mar-r-20{
+  margin-right: 20px;
+}
 /*end crop html*/

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\HttpFoundation\Response;
 
 use Imagine\Imagick\Imagine;
 use Imagine\Image\Box;
@@ -269,4 +270,43 @@ class FileServiceImpl extends BaseService implements FileService
         }
         closedir($handle);
     }
+
+    public function downloadZip($secret)
+    {   
+        $filenameParts = explode('/', $secret);
+        $zipName = array_pop($filenameParts);
+
+        $zipName = 'public://cropHtml/'. $secret . '/' . $zipName . '.zip';
+        $path = $this->sqlUriConvertAbsolutUri($zipName);
+
+        return $this->downloadFile($path);
+
+    }
+
+    /*
+    *   $filename include path;
+    */
+    private function downloadFile($filename)
+    {
+        
+        $response = new Response();
+
+        if (file_exists($filename)){
+            // Set headers
+            $response->headers->set('Cache-Control', 'private');
+            $response->headers->set('Content-type', mime_content_type($filename));
+            $response->headers->set('Content-Disposition', 'attachment; filename=' . basename($filename) . ';');
+            $response->headers->set('Content-length', filesize($filename));
+
+            // Send headers before outputting anything
+            $response->sendHeaders();
+            $response->setContent(readfile($filename));
+            return true;
+
+        }else{
+            return false;
+        }
+
+    }
+
 }

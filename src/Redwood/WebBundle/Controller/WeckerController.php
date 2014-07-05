@@ -3,6 +3,8 @@
 namespace Redwood\WebBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use Redwood\Common\FileToolkit;
 
 use Imagine\Gd\Imagine;
@@ -70,27 +72,27 @@ class WeckerController extends BaseController
                 }
             }
 
-            // $imagesRecords = $this->getFileService()->uploadHtmlPic($pictureFilePath, $options);
+            $imagesRecords = $this->getFileService()->uploadHtmlPic($pictureFilePath, $options);
             // test data
-            $imagesRecords = array(
-                                'imagesInfos' => array('img0.jpg','img1.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg','img6.jpg'),
-                                'secret' => '2014/06-24/1a36cd185697',
-                            );
+            // $imagesRecords = array(
+            //                     'imagesInfos' => array('img0.jpg','img1.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg','img6.jpg'),
+            //                     'secret' => '2014/06-24/1a36cd185697',
+            //                 );
 
-            // $divCoors = $this->getFileService()->getCropDivCoordsByLines($lines, $naturalHeight);
-            // foreach ($divCoors as $key => $value) {
-            //     foreach ($imagesRecords['imagesInfos'] as $imagesRecord) {
-            //         $divCoors[$key]['filename'] = $imagesRecords['imagesInfos'][$key];
-            //     }
-            // }
+            $divCoors = $this->getFileService()->getCropDivCoordsByLines($lines, $naturalHeight);
+            foreach ($divCoors as $key => $value) {
+                foreach ($imagesRecords['imagesInfos'] as $imagesRecord) {
+                    $divCoors[$key]['filename'] = $imagesRecords['imagesInfos'][$key];
+                }
+            }
 
-            // $html = $this->renderView('RedwoodWebBundle:Wecker:pageView.html.twig', array(
-            //     'imagesInfos' => $divCoors,
-            //     'boxs' => $boxs ? $boxs:'',
-            // ));
-            // $cropDirPath = 'public://cropHtml/'. $imagesRecords['secret'];
-            // $this->getFileService()->writeFile($cropDirPath, $html);
-            // $this->getFileService()->zipFolder($cropDirPath);
+            $html = $this->renderView('RedwoodWebBundle:Wecker:pageView.html.twig', array(
+                'imagesInfos' => $divCoors,
+                'boxs' => $boxs ? $boxs:'',
+            ));
+            $cropDirPath = 'public://cropHtml/'. $imagesRecords['secret'];
+            $this->getFileService()->writeFile($cropDirPath, $html);
+            $this->getFileService()->zipFolder($cropDirPath);
 
             return $this->createJsonResponse(array(
                 'status' => 'success', 
@@ -121,18 +123,15 @@ class WeckerController extends BaseController
 
     public function zipGetAction(Request $request)
     {
-        if($request->getMethod()=='POST')
-        {
-         
-            $options  = $request->request->all();
-            var_dump($options);
-           
-
-            return $this->createJsonResponse(array(
-                'status' => 'success', 
-            ));
-   
+        
+        $secret = base64_decode($request->query->get('data'));
+        if ($secret) {
+            $result = $this->getFileService()->downloadZip($secret);
         }
+
+        return $this->createJsonResponse(array(
+            'status' => $result, 
+        ));
 
     }
 

@@ -20,6 +20,8 @@ interface FileService
     
     public function zipFolder($includePathFilename);
 
+    public function downloadZip($secret);
+
 
 
 }

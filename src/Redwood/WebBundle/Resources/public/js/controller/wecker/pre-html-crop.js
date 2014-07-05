@@ -8,20 +8,7 @@ define(function(require, exports, module) {
             var url = $('[data-role="getZip"]').data('url'),
             data = $('[data-role=getSecret]').val();
 
-            if (data) {
-                $.post(url, {'postData':data}, function(results){
-                    if(results.status == 'success')
-                    {
-                        console.log(results.secret);
-                        // $('#demo').remove();
-                        // $('.cr-box').remove();
-                       
-                       
-                    }
-                });
-            };
-            
-            
+            window.location.href = url + '?data=' +data; 
 
         });
 

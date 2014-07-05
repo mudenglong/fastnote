@@ -57,13 +57,28 @@ define(function(require, exports, module) {
             $.post(url, {'postData':data}, function(results){
                 if(results.status == 'success')
                 {
-                    console.log(results.secret);
-                    // $('#demo').remove();
-                    // $('.cr-box').remove();
-                   
-                   
+                    $('[data-role="show-secret"]').val(results.secret);
+                    $('#linkGetZip').data("secret", results.secret);
+                    $('.cr-ok').css('display','block');
+
+                    $('#demo').remove();
+                    $('.cr-box').remove();
                 }
+                
             });
+
+        });
+
+        $('body').on('click', '#linkGetZip', function(){
+            
+            var url = $(this).data('url'),
+            data = $(this).data('secret');
+            if (data) {
+                window.location.href = url + '?data=' +data; 
+                
+            }else{
+                return false;                
+            };
 
         });
 
@@ -71,7 +86,6 @@ define(function(require, exports, module) {
     };
 
     function beforeGetResult () {
-        console.log('121212');
         $('#demo').css('display','none');
         $('.cr-tip').css('display','none');
         $('.cr-settings').css('display','none');
